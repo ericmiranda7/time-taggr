@@ -1,52 +1,13 @@
 import NavigationBar from './components/NavigationBar'
-import Clock from './components/Clock'
-import { useDispatch, useSelector } from 'react-redux'
-import { setTimer, startTimer, stopTimer, pauseTimer } from './reducers/timerReducer'
-import { useEffect } from 'react'
-import { Button } from 'react-bootstrap'
+import Timer from './components/Timer'
 
 const App = () => {
-  const timer = useSelector(state => state)
-  const dispatch = useDispatch()
-
-  // initialise timer
-  useEffect(() => {
-    dispatch(setTimer(1))
-  }, [dispatch])
-
-  const handleStartClick = () => {
-    startTimer(dispatch)
-  }
-
-  const handleStopClick = () => {
-    stopTimer(dispatch)
-  }
-
-  const handlePauseClick = () => {
-    dispatch(pauseTimer())
-  }
 
   return (
     <div>
       <NavigationBar />
       <div className="container mt-4">
-        <Clock timer={timer} />
-        <div className="align-items-center mt-3">
-          {timer.running
-            ? <div>
-            <Button variant="primary" className="mx-auto" onClick={handlePauseClick} style={{width: '175px', display: 'block'}}>Pause</Button>
-              <Button variant="danger" className="mx-auto mt-1" style={{width: '175px', display: 'block'}} onClick={handleStopClick}>Stop</Button>
-            </div>
-            : timer.pause ?
-                <div>
-                <Button variant="primary" className="mx-auto" onClick={handleStartClick} style={{width: '175px', display: 'block'}}>Start</Button>
-                <Button variant="danger" className="mx-auto mt-1" style={{width: '175px', display: 'block'}} onClick={handleStopClick}>Stop</Button>
-                </div>
-                : <Button variant="primary" className="mx-auto" onClick={handleStartClick} style={{width: '175px', display: 'block'}}>Start</Button>}
-          
-          
-          <p>Completed time: {timer.completedTime / 1000} seconds</p>
-        </div>
+        <Timer />
       </div>
     </div>
   )
