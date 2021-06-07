@@ -6,7 +6,8 @@ const Clock = ({ timer }) => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      borderStyle: 'solid'
+      borderStyle: 'solid',
+      borderWidth: '0.5em'
     },
     'time-text': {
       fontSize: '50px'

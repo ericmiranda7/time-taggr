@@ -41,7 +41,7 @@ const Timer = () => {
             : <Button variant="primary" className="mx-auto" onClick={handleStartClick} style={{ width: '175px', display: 'block' }}>Start</Button>}
 
 
-        <p>Completed time: {timer.completedTime / 1000} seconds</p>
+        <p className="text-center">Completed time: {timer.completedTime / 1000} seconds</p>
       </div>
     </div>
   )
