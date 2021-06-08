@@ -1,12 +1,15 @@
 import { Card, ListGroup } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
-import { makeSelected } from '../reducers/tagsReducer'
+import { makeSelected, addTag } from '../reducers/tagsReducer'
 import { setTimer } from '../reducers/timerReducer'
 
 const styles = {
   duration: {
     width: '4em',
     textAlign: 'right'
+  },
+  spanAlignCenter: {
+    alignItems: 'center'
   }
 }
 
@@ -30,7 +33,7 @@ const DurationForm = () => {
 
   return (
     <div className="d-flex justify-content-end">
-      <span className="d-inline-flex flex-grow-1" style={{alignItems: 'center'}} >Duration:</span>
+      <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Duration:</span>
       <div className="">
         <input className="mr-1" type="number" onChange={hoursChangeHandler} style={styles.duration} name="hours" placeholder={timer.hours + 'H'} />
         <input type="number" onChange={minutesChangeHandler} style={styles.duration} name="minutes" placeholder={timer.minutes + 'M'} />
@@ -51,11 +54,34 @@ const TagSelect = () => {
 
   return (
     <div className="d-flex">
-      <span className="flex-grow-1">Select Tag</span>
+      <span className="flex-grow-1" >Select Tag</span>
       <select onChange={onTagSelected}>
         <option>SELECT TAG</option>
         {tags.map((tag, i) => <option key={i} value={tag.name}>{tag.name}</option>)}
       </select>
+    </div>
+  )
+}
+
+const AddTag = () => {
+  const dispatch = useDispatch()
+
+  const handleKeyDown = event => {
+    if (event.key === 'Enter') {
+      const tag = {
+        name: event.target.value,
+        color: 'gray',
+        selected: false
+      }
+      event.target.value = ''
+      dispatch(addTag(tag))
+    }
+  }
+
+  return (
+    <div className="d-flex">
+      <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter}>Add Tag</span>
+      <input className="" style={{width: '8em'}} onKeyDown={handleKeyDown}></input>
     </div>
   )
 }
@@ -72,7 +98,9 @@ const Settings = () => {
           <ListGroup.Item>
             <TagSelect />
           </ListGroup.Item>
-          <ListGroup.Item>Add Tag</ListGroup.Item>
+          <ListGroup.Item>
+            <AddTag />
+          </ListGroup.Item>
         </ListGroup>
       </Card>
     </div>
