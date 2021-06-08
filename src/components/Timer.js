@@ -66,7 +66,7 @@ const TimerControls = ({ timer, dispatch }) => {
 }
 
 const Timer = () => {
-  const timer = useSelector(state => state)
+  const timer = useSelector(state => state.timer)
   const dispatch = useDispatch()
 
   // initialise timer

@@ -1,5 +1,6 @@
 import { Card, ListGroup } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
+import { makeSelected } from '../reducers/tagsReducer'
 import { setTimer } from '../reducers/timerReducer'
 
 const styles = {
@@ -10,7 +11,7 @@ const styles = {
 }
 
 const DurationForm = () => {
-  const timer = useSelector(state => state)
+  const timer = useSelector(state => state.timer)
   const dispatch = useDispatch()
 
   const hoursChangeHandler = (event) => {
@@ -39,12 +40,21 @@ const DurationForm = () => {
 }
 
 const TagSelect = () => {
+  const tags = useSelector(state => state.tags)
+  const dispatch = useDispatch()
+
+  const onTagSelected = event => {
+    const tag = {name: event.target.value}
+    
+    dispatch(makeSelected(tag))
+  }
+
   return (
     <div className="d-flex">
       <span className="flex-grow-1">Select Tag</span>
-      <select>
-        <option value="Math">Math</option>
-        <option value="Study">Study</option>
+      <select onChange={onTagSelected}>
+        <option>SELECT TAG</option>
+        {tags.map((tag, i) => <option key={i} value={tag.name}>{tag.name}</option>)}
       </select>
     </div>
   )
