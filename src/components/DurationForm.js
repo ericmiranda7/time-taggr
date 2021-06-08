@@ -3,7 +3,8 @@ import { setTimer } from '../reducers/timerReducer'
 
 const styles = {
   duration: {
-    width: '3em'
+    width: '4em',
+    textAlign: 'right'
   }
 }
 
@@ -26,10 +27,12 @@ const DurationForm = () => {
   }
 
   return (
-    <div >
-      Duration:
-      <input type="number" onChange={hoursChangeHandler} style={styles.duration} name="hours" placeholder={timer.hours || ''} />
-      <input type="number" onChange={minutesChangeHandler} style={styles.duration} name="minutes" placeholder={timer.minutes || ''}/>
+    <div className="d-flex justify-content-end">
+      <span className="d-inline-flex flex-grow-1" style={{alignItems: 'center'}} >Duration:</span>
+      <div className="">
+        <input className="mr-1" type="number" onChange={hoursChangeHandler} style={styles.duration} name="hours" placeholder={timer.hours + 'H'} />
+        <input type="number" onChange={minutesChangeHandler} style={styles.duration} name="minutes" placeholder={timer.minutes + 'M'} />
+      </div>
     </div>
   )
 }

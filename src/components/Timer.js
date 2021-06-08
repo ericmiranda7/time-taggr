@@ -71,7 +71,7 @@ const Timer = () => {
 
   // initialise timer
   useEffect(() => {
-    dispatch(setTimer(1))
+    dispatch(setTimer(25))
   }, [dispatch])
 
   return (
