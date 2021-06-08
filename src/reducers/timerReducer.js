@@ -2,10 +2,11 @@ const initialState = {
   start: null,
   pause: null,
   diff: null,
+  hours: null,
   minutes: null,
   seconds: null,
   completedTime: null,
-  duration: null,
+  duration: 0,
   expired: false,
   running: false
 }
@@ -37,10 +38,10 @@ export const saveTime = () => {
   return { type: 'SAVE_TIME' }
 }
 
-export const stopTimer = (dispatch) => {
+export const stopTimer = (dispatch, duration) => {
   clearInterval(interval)
   dispatch(saveTime())
-  dispatch(setTimer())
+  dispatch(setTimer(duration / 60))
 }
 
 export const pauseTimer = () => {
@@ -51,19 +52,23 @@ export const pauseTimer = () => {
 const timerReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_TIMER':
-      const duration = action.payload?.duration || state.duration
-      let minutes = duration / 60 | 0
+      const duration = action.payload?.duration
+      let hours = (duration / 3600) | 0
+      let minutes = ((duration / 60) | 0 ) % 60
       let seconds = '00'
 
       minutes = minutes < 10 ? '0' + minutes : minutes
-      return { ...state, duration: duration, minutes, seconds, running: false, pause: null }
+      hours = hours < 10 ? '0' + hours : hours
+      return { ...state, duration: duration, hours, minutes, seconds, running: false, pause: null }
+
     case 'TICK':
       if (!state.expired) {
         const diff = state.duration - (((Date.now() - state.start) / 1000) | 0)
 
         console.log(state.start)
-
-        let minutes = (diff / 60) | 0
+        
+        let hours = (diff / 3600) | 0
+        let minutes = (((diff / 60)) | 0 ) % 60
         let seconds = (diff % 60) | 0
 
         minutes = minutes < 10 ? "0" + minutes : minutes
@@ -75,22 +80,26 @@ const timerReducer = (state = initialState, action) => {
 
           expired = true
         }
-        return { ...state, diff, minutes, seconds, start, expired }
+        return { ...state, diff, hours, minutes, seconds, start, expired }
       }
       clearInterval(interval)
       return state
+
     case 'START_TIMER':
       const start = state.pause
         ? (Date.now() - state.pause) + state.start
         : Date.now()
       return { ...state, start, running: true }
+
     case 'PAUSE_TIMER':
       return { ...state, pause: Date.now(), running: false }
+
     case 'SAVE_TIME':
       const completedTime = state.pause
-      ? state.pause - state.start
-      : Date.now() - state.start
+        ? state.pause - state.start
+        : Date.now() - state.start
       return { ...state, completedTime }
+
     default:
       return state
   }

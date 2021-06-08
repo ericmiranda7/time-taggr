@@ -1,4 +1,5 @@
 import { Card, ListGroup } from 'react-bootstrap'
+import DurationForm from './DurationForm'
 
 const Settings = () => {
   return (
@@ -7,7 +8,7 @@ const Settings = () => {
         <Card.Header>Settings</Card.Header>
         <ListGroup variant="flush">
           <ListGroup.Item>
-            Duration: <input className="d-inline w-50 align-items-right"></input>
+            <DurationForm />
           </ListGroup.Item>
           <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
           <ListGroup.Item>Vestibulum at eros</ListGroup.Item>

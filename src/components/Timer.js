@@ -18,7 +18,7 @@ const Timer = () => {
   }
 
   const handleStopClick = () => {
-    stopTimer(dispatch)
+    stopTimer(dispatch, timer.duration)
   }
 
   const handlePauseClick = () => {

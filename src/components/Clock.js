@@ -16,7 +16,7 @@ const Clock = ({ timer }) => {
 
   return (
     <div className="mx-auto rounded-circle" style={styles.clock}>
-      <p className="mb-0" style={styles['time-text']}>{timer.minutes}:{timer.seconds}</p>
+      <p className="mb-0" style={styles['time-text']}>{timer.hours}:{timer.minutes}:{timer.seconds}</p>
     </div>
   )
 
