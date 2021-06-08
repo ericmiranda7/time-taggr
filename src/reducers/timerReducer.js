@@ -77,7 +77,6 @@ const timerReducer = (state = initialState, action) => {
         let start = state.start
         let expired = state.expired
         if (diff <= 0) {
-
           expired = true
         }
         return { ...state, diff, hours, minutes, seconds, start, expired }
