@@ -1,7 +1,6 @@
 import { Card, ListGroup } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { makeSelected, addTag, setBreakDuration, setTagDuration } from '../reducers/tagsReducer'
-import { setTimer } from '../reducers/timerReducer'
 
 const styles = {
   duration: {
