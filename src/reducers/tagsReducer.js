@@ -42,7 +42,7 @@ export const setBreakDuration = (duration) => {
 
 export const setTagDuration = (tag, duration) => {
   return {
-    type: 'SET_DURATION',
+    type: 'SET_TAG_DURATION',
     payload: {tag, duration: duration}
   }
 }
@@ -62,7 +62,7 @@ const tagsReducer = (state = initialState, action) => {
     case 'MAKE_SELECTED':
       return state.map(tag => tag.name === action.payload.tagName ? {...tag, isSelected: true} : {...tag, isSelected: false})
 
-    case 'SET_DURATION':
+    case 'SET_TAG_DURATION':
       if (action.payload.tag) return state.map(tag => tag.name === action.payload.tag ? {...tag, duration: action.payload.duration} : tag)
       else return state.map(tag => tag.isSelected ? {...tag, duration: action.payload.duration} : tag)
 

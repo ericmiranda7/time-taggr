@@ -1,6 +1,6 @@
 import { Card, ListGroup } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
-import { makeSelected, addTag, setBreakDuration } from '../reducers/tagsReducer'
+import { makeSelected, addTag, setBreakDuration, setTagDuration } from '../reducers/tagsReducer'
 import { setTimer } from '../reducers/timerReducer'
 
 const styles = {
@@ -25,7 +25,6 @@ const DurationForm = () => {
   const dispatch = useDispatch()
 
   const hoursChangeHandler = (event) => {
-
     if (event.target.name.includes('break')) {
       const duration = Number(event.target.value) * 60 + breakTime.minutes
       console.log(duration)
@@ -33,7 +32,7 @@ const DurationForm = () => {
     }
     else {
       const duration = Number(event.target.value) * 60 + Number(timer.minutes)
-      dispatch(setTimer(duration))
+      dispatch(setTagDuration(null, duration))
     }
   }
 
@@ -44,7 +43,7 @@ const DurationForm = () => {
     }
     else {
       const duration = Number(event.target.value) + (Number(timer.hours) * 60)
-      dispatch(setTimer(duration))
+      dispatch(setTagDuration(null, duration))
     }
 
     if (event.target.value > 59) {
