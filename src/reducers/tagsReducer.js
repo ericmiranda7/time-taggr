@@ -37,13 +37,13 @@ export const makeSelected = tagName => {
 }
 
 export const setBreakDuration = (duration) => {
-  return setTagDuration('Break', duration)
+  return setTagDuration(duration, 'Break')
 }
 
-export const setTagDuration = (tag, duration) => {
+export const setTagDuration = (duration, tagName) => {
   return {
     type: 'SET_TAG_DURATION',
-    payload: {tag, duration: duration}
+    payload: {duration, tagName}
   }
 }
 
@@ -63,7 +63,7 @@ const tagsReducer = (state = initialState, action) => {
       return state.map(tag => tag.name === action.payload.tagName ? {...tag, isSelected: true} : {...tag, isSelected: false})
 
     case 'SET_TAG_DURATION':
-      if (action.payload.tag) return state.map(tag => tag.name === action.payload.tag ? {...tag, duration: action.payload.duration} : tag)
+      if (action.payload.tagName === 'Break') return state.map(tag => tag.name === 'Break' ? {...tag, duration: action.payload.duration} : tag)
       else return state.map(tag => tag.isSelected ? {...tag, duration: action.payload.duration} : tag)
 
     case 'ADD_COMPLETION':

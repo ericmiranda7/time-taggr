@@ -31,7 +31,7 @@ const DurationForm = () => {
     }
     else {
       const duration = Number(event.target.value) * 60 + Number(timer.minutes)
-      dispatch(setTagDuration(null, duration))
+      dispatch(setTagDuration(duration))
     }
   }
 
@@ -42,7 +42,7 @@ const DurationForm = () => {
     }
     else {
       const duration = Number(event.target.value) + (Number(timer.hours) * 60)
-      dispatch(setTagDuration(null, duration))
+      dispatch(setTagDuration(duration))
     }
 
     if (event.target.value > 59) {
