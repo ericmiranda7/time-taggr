@@ -41,6 +41,10 @@ export const pauseTimer = () => {
   return { type: 'PAUSE_TIMER' }
 }
 
+export const consumeCompletedTime = () => {
+  return { type: 'CONSUME_COMPLETION' }
+}
+
 const timerReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_TIMER':
@@ -83,7 +87,10 @@ const timerReducer = (state = initialState, action) => {
         hours = hours < 10 ? '0' + hours : hours
         return { ...state, start: null, completedTime: state.duration * 1000, running: false, expired: false, hours, minutes, seconds }
       }
-      break;
+      break
+
+    case 'CONSUME_COMPLETION':
+      return {...state, completedTime: null}
 
     case 'START_TIMER':
       const start = state.pause

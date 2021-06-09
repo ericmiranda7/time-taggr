@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { setTimer, startTimer, stopTimer, pauseTimer } from '../reducers/timerReducer'
+import { setTimer, startTimer, stopTimer, pauseTimer, consumeCompletedTime } from '../reducers/timerReducer'
+import { addCompletedTime } from '../reducers/tagsReducer'
 import { Button } from 'react-bootstrap'
 
 const Clock = ({ timer }) => {
@@ -67,7 +68,7 @@ const TimerControls = ({ timer, dispatch }) => {
 
 const Timer = () => {
   const timer = useSelector(state => state.timer)
-  const selectedTag = useSelector(({tags}) => {
+  const selectedTag = useSelector(({ tags }) => {
     return tags.find(tag => {
       return tag.isSelected
     })
@@ -78,6 +79,13 @@ const Timer = () => {
     dispatch(setTimer(selectedTag?.duration || 0))
   }, [dispatch, selectedTag])
 
+  useEffect(() => {
+    if (timer.completedTime > 0) {
+      dispatch(addCompletedTime(selectedTag?.name, timer.completedTime))
+      dispatch(consumeCompletedTime())
+    }
+  }, [dispatch, selectedTag, timer])
+
   return (
     <div>
       <Clock timer={timer} />
@@ -85,6 +93,7 @@ const Timer = () => {
         <TimerControls timer={timer} dispatch={dispatch} />
 
         <p className="text-center">Completed time: {timer.completedTime / 1000} seconds</p>
+        <p className="text-center">Completed time tag: {selectedTag?.completedTime / 1000} seconds</p>
       </div>
     </div>
   )
