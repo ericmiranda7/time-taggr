@@ -99,7 +99,6 @@ const AddTag = () => {
       const tag = {
         name: event.target.value,
         color: 'gray',
-        selected: false
       }
       event.target.value = ''
       dispatch(addTag(tag))

@@ -25,14 +25,14 @@ const initialState = [
 export const addTag = (tag) => {
   return {
     type: 'ADD_TAG',
-    payload: {tag}
+    payload: { tag: { ...tag, completedTime: 0 } }
   }
 }
 
 export const makeSelected = tagName => {
   return {
     type: 'MAKE_SELECTED',
-    payload: {tagName}
+    payload: { tagName }
   }
 }
 
@@ -43,14 +43,14 @@ export const setBreakDuration = (duration) => {
 export const setTagDuration = (duration, tagName) => {
   return {
     type: 'SET_TAG_DURATION',
-    payload: {duration, tagName}
+    payload: { duration, tagName }
   }
 }
 
 export const addCompletedTime = (tagName, completedTime) => {
   return {
     type: 'ADD_COMPLETION',
-    payload: {tagName, completedTime}
+    payload: { tagName, completedTime }
   }
 }
 
@@ -60,14 +60,14 @@ const tagsReducer = (state = initialState, action) => {
       return state.concat(action.payload.tag)
 
     case 'MAKE_SELECTED':
-      return state.map(tag => tag.name === action.payload.tagName ? {...tag, isSelected: true} : {...tag, isSelected: false})
+      return state.map(tag => tag.name === action.payload.tagName ? { ...tag, isSelected: true } : { ...tag, isSelected: false })
 
     case 'SET_TAG_DURATION':
-      if (action.payload.tagName === 'Break') return state.map(tag => tag.name === 'Break' ? {...tag, duration: action.payload.duration} : tag)
-      else return state.map(tag => tag.isSelected ? {...tag, duration: action.payload.duration} : tag)
+      if (action.payload.tagName === 'Break') return state.map(tag => tag.name === 'Break' ? { ...tag, duration: action.payload.duration } : tag)
+      else return state.map(tag => tag.isSelected ? { ...tag, duration: action.payload.duration } : tag)
 
     case 'ADD_COMPLETION':
-      return state.map(tag => tag.name === action.payload.tagName ? {...tag, completedTime: tag.completedTime + action.payload.completedTime} : tag)
+      return state.map(tag => tag.name === action.payload.tagName ? { ...tag, completedTime: tag.completedTime + action.payload.completedTime } : tag)
 
     default:
       return state
