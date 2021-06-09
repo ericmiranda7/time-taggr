@@ -33,7 +33,7 @@ const DurationForm = () => {
 
   return (
     <div className="d-flex justify-content-end">
-      <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Duration:</span>
+      <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Duration</span>
       <div className="">
         <input className="mr-1" type="number" onChange={hoursChangeHandler} style={styles.duration} name="hours" placeholder={timer.hours + 'H'} />
         <input type="number" onChange={minutesChangeHandler} style={styles.duration} name="minutes" placeholder={timer.minutes + 'M'} />
@@ -55,7 +55,7 @@ const TagSelect = () => {
   return (
     <div className="d-flex">
       <span className="flex-grow-1" >Select Tag</span>
-      <select onChange={onTagSelected}>
+      <select onChange={onTagSelected} style={{width: '8em'}}>
         <option>SELECT TAG</option>
         {tags.map((tag, i) => <option key={i} value={tag.name}>{tag.name}</option>)}
       </select>

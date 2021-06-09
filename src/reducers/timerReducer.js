@@ -54,7 +54,7 @@ const timerReducer = (state = initialState, action) => {
     case 'SET_TIMER':
       const duration = action.payload?.duration
       let hours = (duration / 3600) | 0
-      let minutes = ((duration / 60) | 0 ) % 60
+      let minutes = ((duration / 60) | 0) % 60
       let seconds = '00'
 
       minutes = minutes < 10 ? '0' + minutes : minutes
@@ -66,9 +66,9 @@ const timerReducer = (state = initialState, action) => {
         const diff = state.duration - (((Date.now() - state.start) / 1000) | 0)
 
         console.log(state.start)
-        
+
         let hours = (diff / 3600) | 0
-        let minutes = (((diff / 60)) | 0 ) % 60
+        let minutes = (((diff / 60)) | 0) % 60
         let seconds = (diff % 60) | 0
 
         minutes = minutes < 10 ? "0" + minutes : minutes
@@ -80,9 +80,18 @@ const timerReducer = (state = initialState, action) => {
           expired = true
         }
         return { ...state, diff, hours, minutes, seconds, start, expired }
+      } else if (state.expired) {
+        clearInterval(interval)
+        const duration = state.duration
+        let hours = (duration / 3600) | 0
+        let minutes = ((duration / 60) | 0) % 60
+        let seconds = '00'
+
+        minutes = minutes < 10 ? '0' + minutes : minutes
+        hours = hours < 10 ? '0' + hours : hours
+        return { ...state, start: null, completedTime: state.duration * 1000, running: false, expired:false, hours, minutes, seconds}
       }
-      clearInterval(interval)
-      return state
+      break;
 
     case 'START_TIMER':
       const start = state.pause
