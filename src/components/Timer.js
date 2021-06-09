@@ -75,7 +75,6 @@ const Timer = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log('effect run, tag:', selectedTag)
     dispatch(setTimer(selectedTag?.duration || 0))
   }, [dispatch, selectedTag])
 

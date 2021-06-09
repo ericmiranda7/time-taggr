@@ -15,7 +15,7 @@ const initialState = [
     name: 'Break',
     color: 'white',
     isSelected: false,
-    duration: 5
+    duration: 70
   }
 ]
 
@@ -26,17 +26,21 @@ export const addTag = (tag) => {
   }
 }
 
-export const makeSelected = tag => {
+export const makeSelected = tagName => {
   return {
-    type: 'MAKE_IMP',
-    payload: {tag}
+    type: 'MAKE_SELECTED',
+    payload: {tagName}
   }
 }
 
-export const setTagDuration = duration => {
+export const setBreakDuration = (duration) => {
+  return setTagDuration('Break', duration)
+}
+
+export const setTagDuration = (tag, duration) => {
   return {
     type: 'SET_DURATION',
-    action: {payload: duration * 60}
+    payload: {tag, duration: duration}
   }
 }
 
@@ -45,8 +49,12 @@ const tagsReducer = (state = initialState, action) => {
     case 'ADD_TAG':
       return state.concat(action.payload.tag)
 
-    case 'MAKE_IMP':
-      return state.map(tag => tag.name === action.payload.tag.name ? {...tag, isSelected: true} : {...tag, isSelected: false})
+    case 'MAKE_SELECTED':
+      return state.map(tag => tag.name === action.payload.tagName ? {...tag, isSelected: true} : {...tag, isSelected: false})
+
+    case 'SET_DURATION':
+      if (action.payload.tag) return state.map(tag => tag.name === action.payload.tag ? {...tag, duration: action.payload.duration} : tag)
+      else return state.map(tag => tag.isSelected ? {...tag, duration: action.payload.duration} : tag)
 
     default:
       return state
