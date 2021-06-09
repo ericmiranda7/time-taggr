@@ -67,12 +67,17 @@ const TimerControls = ({ timer, dispatch }) => {
 
 const Timer = () => {
   const timer = useSelector(state => state.timer)
+  const selectedTag = useSelector(({tags}) => {
+    return tags.find(tag => {
+      return tag.isSelected
+    })
+  })
   const dispatch = useDispatch()
 
-  // initialise timer
   useEffect(() => {
-    dispatch(setTimer(25))
-  }, [dispatch])
+    console.log('effect run, tag:', selectedTag)
+    dispatch(setTimer(selectedTag?.duration || 0))
+  }, [dispatch, selectedTag])
 
   return (
     <div>

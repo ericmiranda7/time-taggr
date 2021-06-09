@@ -32,9 +32,14 @@ const DurationForm = () => {
   }
 
   return (
-    <div className="d-flex justify-content-end">
-      <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Duration</span>
-      <div className="">
+    <div className="d-flex justify-content-end flex-column">
+      <div className="d-flex flex-row">
+      <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Work</span>
+        <input className="mr-1" type="number" onChange={hoursChangeHandler} style={styles.duration} name="hours" placeholder={timer.hours + 'H'} />
+        <input type="number" onChange={minutesChangeHandler} style={styles.duration} name="minutes" placeholder={timer.minutes + 'M'} />
+      </div>
+      <div className="d-flex flex-row mt-1">
+      <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Break</span>
         <input className="mr-1" type="number" onChange={hoursChangeHandler} style={styles.duration} name="hours" placeholder={timer.hours + 'H'} />
         <input type="number" onChange={minutesChangeHandler} style={styles.duration} name="minutes" placeholder={timer.minutes + 'M'} />
       </div>
@@ -55,8 +60,8 @@ const TagSelect = () => {
   return (
     <div className="d-flex">
       <span className="flex-grow-1" >Select Tag</span>
-      <select onChange={onTagSelected} style={{width: '8em'}}>
-        <option>SELECT TAG</option>
+      <select onChange={onTagSelected} style={{width: '8.2em'}} defaultValue="-- Select Tag --">
+        <option hidden disabled>-- Select Tag --</option>
         {tags.map((tag, i) => <option key={i} value={tag.name}>{tag.name}</option>)}
       </select>
     </div>
@@ -81,7 +86,7 @@ const AddTag = () => {
   return (
     <div className="d-flex">
       <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter}>Add Tag</span>
-      <input className="" style={{width: '8em'}} onKeyDown={handleKeyDown}></input>
+      <input className="" style={{width: '8.2em'}} onKeyDown={handleKeyDown}></input>
     </div>
   )
 }

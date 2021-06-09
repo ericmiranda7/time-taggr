@@ -8,7 +8,7 @@ const initialState = {
   completedTime: null,
   duration: 0,
   expired: false,
-  running: false
+  running: false,
 }
 
 let interval
@@ -21,12 +21,8 @@ export const setTimer = duration => {
   return { type: 'SET_TIMER', payload: { duration: duration * 60 } }
 }
 
-export const setStart = () => {
-  return { type: 'START_TIMER' }
-}
-
 export const startTimer = dispatch => {
-  dispatch(setStart())
+  dispatch({ type: 'START_TIMER' })
   dispatch(tick())
 
   interval = setInterval(() => {
@@ -34,13 +30,9 @@ export const startTimer = dispatch => {
   }, 1000)
 }
 
-export const saveTime = () => {
-  return { type: 'SAVE_TIME' }
-}
-
 export const stopTimer = (dispatch, duration) => {
   clearInterval(interval)
-  dispatch(saveTime())
+  dispatch({ type: 'SAVE_TIME' })
   dispatch(setTimer(duration / 60))
 }
 
@@ -89,7 +81,7 @@ const timerReducer = (state = initialState, action) => {
 
         minutes = minutes < 10 ? '0' + minutes : minutes
         hours = hours < 10 ? '0' + hours : hours
-        return { ...state, start: null, completedTime: state.duration * 1000, running: false, expired:false, hours, minutes, seconds}
+        return { ...state, start: null, completedTime: state.duration * 1000, running: false, expired: false, hours, minutes, seconds }
       }
       break;
 

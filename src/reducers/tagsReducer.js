@@ -2,12 +2,20 @@ const initialState = [
   {
     name: 'Study',
     color: 'blue',
-    isSelected: false
+    isSelected: false,
+    duration: 25
   },
   {
     name: 'Read',
     color: 'green',
-    isSelected: false
+    isSelected: false,
+    duration: 25
+  },
+  {
+    name: 'Break',
+    color: 'white',
+    isSelected: false,
+    duration: 5
   }
 ]
 
@@ -22,6 +30,13 @@ export const makeSelected = tag => {
   return {
     type: 'MAKE_IMP',
     payload: {tag}
+  }
+}
+
+export const setTagDuration = duration => {
+  return {
+    type: 'SET_DURATION',
+    action: {payload: duration * 60}
   }
 }
 
