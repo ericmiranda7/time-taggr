@@ -15,6 +15,7 @@ const requestLogger = (request, response, next) => {
 }
 app.use(requestLogger)
 
+app.use(express.static('build'))
 app.use('/api/tags', tagsRouter)
 
 const unkownEndpoint = (request, response) => {
