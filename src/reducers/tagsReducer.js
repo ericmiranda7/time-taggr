@@ -25,7 +25,7 @@ const initialState = [
 export const addTag = (tag) => {
   return {
     type: 'ADD_TAG',
-    payload: { tag: { ...tag, completedTime: 0 } }
+    payload: { tag: { ...tag, completedTime: 0, duration: 25 } }
   }
 }
 

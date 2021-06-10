@@ -81,7 +81,6 @@ const Timer = () => {
 
     // if expired OR stopped, getCompletedTime
     if (timer.expired || timer.stopped) {
-      console.log(timer.completedTime)
       dispatch(addCompletedTime(selectedTag?.name, timer.completedTime))
       dispatch(consumeCompletedTime())
     }
