@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ericmiranda7/time-taggr/issues"
   },
-  "homepage": "https://github.com/ericmiranda7/time-taggr#readme"
+  "homepage": "https://github.com/ericmiranda7/time-taggr#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
