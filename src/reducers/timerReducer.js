@@ -100,7 +100,7 @@ const timerReducer = (state = initialState, action) => {
     case 'STOP_TIMER': {
       // compute completed time
       const completedTime = state.duration - state.diff
-      return { ...state, completedTime, stopped: true }
+      return { ...state, completedTime, stopped: true, running: false, pause: null}
     }
 
     case 'PAUSE_TIMER': {

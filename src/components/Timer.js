@@ -45,7 +45,7 @@ const TimerControls = ({ timer, dispatch, selectedTag }) => {
         {timer.pause
           ? <div>
             <ControlButton variant="primary" text="Resume" handleClick={handleResumeClick} />
-            <ControlButton variant="primary" text="Stop" handleClick={handleStopClick} />
+            <ControlButton variant="danger" text="Stop" handleClick={handleStopClick} />
           </div>
           : <ControlButton variant="primary" text="Start" handleClick={handleStartClick} />}
       </div>
