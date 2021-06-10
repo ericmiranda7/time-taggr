@@ -5,7 +5,13 @@ const tagsRouter = require('./controllers/tags')
 
 const app = express()
 
+app.use(express.json())
 app.use('/api/tags', tagsRouter)
+
+const unkownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unkown endpoint' })
+}
+app.use(unkownEndpoint)
 
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true,

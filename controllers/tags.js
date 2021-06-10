@@ -7,4 +7,17 @@ tagsRouter.get('/', async (request, response) => {
   response.json(tags)
 })
 
+tagsRouter.post('/', async (request, response) => {
+  const tag = request.body
+
+  tag.isSelected = false
+  tag.duration = 25
+  tag.completedTime = 0
+
+  const tagToSave = new Tag(tag)
+  const savedTag = await tagToSave.save()
+
+  response.status(201).json(savedTag)
+})
+
 module.exports = tagsRouter
