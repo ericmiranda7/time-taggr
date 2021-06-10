@@ -2,6 +2,6 @@ POST http://localhost:3001/api/tags
 Content-Type: application/json
 
 {
-  "name": "Break",
+  "name": "requestTestTag",
   "color": "green"
 }

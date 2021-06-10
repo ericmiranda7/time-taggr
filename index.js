@@ -6,6 +6,13 @@ const tagsRouter = require('./controllers/tags')
 const app = express()
 
 app.use(express.json())
+
+const requestLogger = (request, response, next) => {
+  console.log('request: ', request.body)
+  next()
+}
+app.use(requestLogger)
+
 app.use('/api/tags', tagsRouter)
 
 const unkownEndpoint = (request, response) => {
