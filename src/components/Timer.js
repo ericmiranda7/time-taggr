@@ -29,22 +29,14 @@ const Clock = ({ timer }) => {
 
 const ControlButton = ({ variant, text, handleClick }) => {
   return (
-    <Button variant={variant} className="mx-auto" onClick={handleClick} style={{ width: '175px', display: 'block' }}>{text}</Button>
+    <Button variant={variant} className="mx-auto mb-1" onClick={handleClick} style={{ width: '175px', display: 'block' }}>{text}</Button>
   )
 }
 
 const TimerControls = ({ timer, dispatch }) => {
-  const handleStartClick = () => {
-    startTimer(dispatch)
-  }
-
-  const handleStopClick = () => {
-    stopTimer(dispatch, timer.duration)
-  }
-
-  const handlePauseClick = () => {
-    dispatch(pauseTimer())
-  }
+  const handleStartClick = () => startTimer(dispatch)
+  const handleStopClick = () => stopTimer(dispatch, timer.duration)
+  const handlePauseClick = () => dispatch(pauseTimer())
 
   if (!timer.running) {
     return (
@@ -55,14 +47,13 @@ const TimerControls = ({ timer, dispatch }) => {
           : ''}
       </div>
     )
-  } else if (timer.running) {
+  } else {
     return (
       <div>
         <ControlButton variant="primary" text="Pause" handleClick={handlePauseClick} />
         <ControlButton variant="danger" text="Stop" handleClick={handleStopClick} />
       </div>
     )
-
   }
 }
 

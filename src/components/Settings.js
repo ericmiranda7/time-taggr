@@ -26,7 +26,6 @@ const DurationForm = () => {
   const hoursChangeHandler = (event) => {
     if (event.target.name.includes('break')) {
       const duration = Number(event.target.value) * 60 + breakTime.minutes
-      console.log(duration)
       dispatch(setBreakDuration(duration))
     }
     else {
@@ -45,14 +44,10 @@ const DurationForm = () => {
       dispatch(setTagDuration(duration))
     }
 
-    if (event.target.value > 59) {
-      event.target.value = ''
-    }
+    if (event.target.value > 59) event.target.value = ''
   }
 
-  const clearInput = (event) => {
-    event.target.value = ''
-  }
+  const clearInput = (event) => event.target.value = ''
 
   return (
     <div className="d-flex justify-content-end flex-column">
@@ -76,7 +71,6 @@ const TagSelect = () => {
 
   const onTagSelected = event => {
     const tagName = event.target.value
-
     dispatch(makeSelected(tagName))
   }
 
