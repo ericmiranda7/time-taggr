@@ -2,7 +2,7 @@ const initialState = [
   {
     name: 'Study',
     color: 'blue',
-    isSelected: false,
+    isSelected: true,
     duration: 25,
     completedTime: 0
   },

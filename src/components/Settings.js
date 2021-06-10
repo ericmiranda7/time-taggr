@@ -12,7 +12,7 @@ const styles = {
   }
 }
 
-const DurationForm = () => {
+const DurationForm = ({selectedTag}) => {
   const timer = useSelector(state => state.timer)
   const breakTime = useSelector(state => {
     const breakTag = state.tags.find(tag => tag.name === 'Break')
@@ -21,6 +21,10 @@ const DurationForm = () => {
       hours: (breakTag.duration / 60 | 0)
     }
   })
+  const selectedTagTime = {
+    minutes: selectedTag.duration % 60,
+    hours: (selectedTag.duration / 60 | 0)
+  }
   const dispatch = useDispatch()
 
   const hoursChangeHandler = (event) => {
@@ -29,7 +33,7 @@ const DurationForm = () => {
       dispatch(setBreakDuration(duration))
     }
     else {
-      const duration = Number(event.target.value) * 60 + Number(timer.minutes)
+      const duration = Number(event.target.value) * 60 + Number(selectedTagTime.minutes)
       dispatch(setTagDuration(duration))
     }
   }
@@ -40,7 +44,7 @@ const DurationForm = () => {
       dispatch(setBreakDuration(duration))
     }
     else {
-      const duration = Number(event.target.value) + (Number(timer.hours) * 60)
+      const duration = Number(event.target.value) + (Number(selectedTagTime.hours) * 60)
       dispatch(setTagDuration(duration))
     }
 
@@ -108,13 +112,15 @@ const AddTag = () => {
 }
 
 const Settings = () => {
+  const selectedTag = useSelector(state => state.tags.find(tag => tag.isSelected))
+
   return (
     <div className="d-flex justify-content-center">
       <Card style={{ width: '18rem' }}>
         <Card.Header>Settings</Card.Header>
         <ListGroup variant="flush">
           <ListGroup.Item>
-            <DurationForm />
+            <DurationForm selectedTag={selectedTag} />
           </ListGroup.Item>
           <ListGroup.Item>
             <TagSelect />
