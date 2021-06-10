@@ -81,8 +81,7 @@ const TagSelect = () => {
   return (
     <div className="d-flex">
       <span className="flex-grow-1" >Select Tag</span>
-      <select onChange={onTagSelected} style={{ width: '8.2em' }} defaultValue="-- Select Tag --">
-        <option hidden disabled>-- Select Tag --</option>
+      <select onChange={onTagSelected} style={{ width: '8.2em' }} defaultValue={tags.filter(tag => tag.isSelected).name}>
         {tags.map((tag, i) => <option key={i} value={tag.name}>{tag.name}</option>)}
       </select>
     </div>
