@@ -1,10 +1,17 @@
 import NavigationBar from './components/NavigationBar'
 import Timer from './components/Timer'
 import Settings from './components/Settings'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { getAllTags } from './reducers/tagsReducer'
 
 const App = () => {
   const tags = useSelector(state => state.tags)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAllTags())
+  }, [dispatch])
 
   return (
     <div>

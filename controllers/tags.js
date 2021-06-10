@@ -10,7 +10,7 @@ tagsRouter.get('/', async (request, response) => {
 tagsRouter.post('/', async (request, response) => {
   const tag = request.body
 
-  tag.isSelected = false
+  tag.isSelected = tag.isSelected || false
   tag.duration = 25
   tag.completedTime = 0
 

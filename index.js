@@ -1,10 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const config = require('./utils/config')
 const tagsRouter = require('./controllers/tags')
 
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 
 const requestLogger = (request, response, next) => {
