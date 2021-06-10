@@ -91,8 +91,6 @@ const Timer = () => {
       <Clock timer={timer} />
       <div className="align-items-center mt-3">
         <TimerControls timer={timer} dispatch={dispatch} selectedTag={selectedTag} />
-
-        <p className="text-center">Completed time: {timer.completedTime / 1000} seconds</p>
         <p className="text-center">Completed time tag: {selectedTag?.completedTime} seconds</p>
       </div>
     </div>
