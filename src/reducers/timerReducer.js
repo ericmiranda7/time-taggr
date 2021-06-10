@@ -1,111 +1,123 @@
 const initialState = {
-  start: null,
-  pause: null,
+  startTime: null,
+  running: false,
+  duration: null,
   diff: null,
   hours: null,
   minutes: null,
   seconds: null,
-  completedTime: null,
-  duration: 0,
-  expired: false,
-  running: false,
+  completedTime: 0,
+  expired: null,
+  stopped: null,
+  pause: null,
 }
 
-let interval
+// timer interval
+let interval = null
 
-export const tick = () => {
-  return { type: 'TICK' }
-}
-
-export const setTimer = duration => {
-  return { type: 'SET_TIMER', payload: { duration: duration * 60 } }
+// setters
+export const setDuration = tag => {
+  const duration = tag.duration * 60
+  return {
+    type: 'SET_DURATION',
+    payload: { duration }
+  }
 }
 
 export const startTimer = dispatch => {
   dispatch({ type: 'START_TIMER' })
-  dispatch(tick())
+  dispatch({ type: 'TICK' })
 
   interval = setInterval(() => {
-    dispatch(tick())
+    dispatch({ type: 'TICK' })
   }, 1000)
 }
 
-export const stopTimer = (dispatch, duration) => {
+export const stopTimer = (dispatch, tag) => {
   clearInterval(interval)
-  dispatch({ type: 'SAVE_TIME' })
-  dispatch(setTimer(duration / 60))
+  dispatch(setDuration(tag))
+  dispatch({ type: 'STOP_TIMER' })
 }
 
 export const pauseTimer = () => {
-  clearInterval(interval)
   return { type: 'PAUSE_TIMER' }
 }
 
+export const resumeTimer = (dispatch) => {
+  dispatch({ type: 'RESUME_TIMER' })
+  dispatch({ type: 'TICK' })
+
+  interval = setInterval(() => {
+    dispatch({ type: 'TICK' })
+  }, 1000)
+}
+
 export const consumeCompletedTime = () => {
-  return { type: 'CONSUME_COMPLETION' }
+  return { type: 'CONSUME_COMPLETED_TIME' }
 }
 
 const timerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_TIMER':
-      const duration = action.payload?.duration
+    case 'SET_DURATION': {
+      const duration = action.payload?.duration || state.duration
       let hours = (duration / 3600) | 0
-      let minutes = ((duration / 60) | 0) % 60
+      let minutes = ((duration / 60 | 0) % 60)
       let seconds = '00'
 
       minutes = minutes < 10 ? '0' + minutes : minutes
       hours = hours < 10 ? '0' + hours : hours
-      return { ...state, duration: duration, hours, minutes, seconds, running: false, pause: null }
+      return { ...state, duration, hours, minutes, seconds, running: false }
+    }
 
-    case 'TICK':
-      if (!state.expired) {
-        const diff = state.duration - (((Date.now() - state.start) / 1000) | 0)
+    case 'START_TIMER': {
+      const startTime = Date.now()
 
-        console.log(state.start)
+      return { ...state, startTime, running: true }
+    }
 
-        let hours = (diff / 3600) | 0
-        let minutes = (((diff / 60)) | 0) % 60
-        let seconds = (diff % 60) | 0
+    case 'TICK': {
+      const diff = state.duration - (((Date.now() - state.startTime) / 1000) | 0)
 
-        minutes = minutes < 10 ? "0" + minutes : minutes
-        seconds = seconds < 10 ? "0" + seconds : seconds
+      let hours = (diff / 3600) | 0
+      let minutes = (((diff / 60)) | 0) % 60
+      let seconds = (diff % 60) | 0
 
-        let start = state.start
-        let expired = state.expired
-        if (diff <= 0) {
-          expired = true
-        }
-        return { ...state, diff, hours, minutes, seconds, start, expired }
-      } else if (state.expired) {
+      hours = hours < 10 ? "0" + hours : hours
+      minutes = minutes < 10 ? "0" + minutes : minutes
+      seconds = seconds < 10 ? "0" + seconds : seconds
+
+      let expired = false, completedTime
+      if (diff <= 0) {
+        expired = true
         clearInterval(interval)
-        const duration = state.duration
-        let hours = (duration / 3600) | 0
-        let minutes = ((duration / 60) | 0) % 60
-        let seconds = '00'
-
-        minutes = minutes < 10 ? '0' + minutes : minutes
-        hours = hours < 10 ? '0' + hours : hours
-        return { ...state, start: null, completedTime: state.duration * 1000, running: false, expired: false, hours, minutes, seconds }
+        // if naturally expired,  completed time is duration of timer
+        completedTime = state.duration
       }
-      break
 
-    case 'CONSUME_COMPLETION':
-      return {...state, completedTime: null}
+      return { ...state, diff, hours, minutes, seconds, completedTime, expired }
+    }
 
-    case 'START_TIMER':
-      const start = state.pause
-        ? (Date.now() - state.pause) + state.start
-        : Date.now()
-      return { ...state, start, running: true }
+    case 'STOP_TIMER': {
+      // compute completed time
+      const completedTime = state.duration - state.diff
+      console.log('ct is ', completedTime)
+      return { ...state, completedTime, stopped: true }
+    }
 
-    case 'PAUSE_TIMER':
+    case 'PAUSE_TIMER': {
+      clearInterval(interval)
       return { ...state, pause: Date.now(), running: false }
+    }
 
-    case 'SAVE_TIME':
-      const completedTime = state.pause
-        ? state.pause - state.start
-        : Date.now() - state.start
-      return { ...state, completedTime }
+    case 'RESUME_TIMER': {
+      const startTime = (Date.now() - state.pause) + state.startTime
+
+      return { ...state, startTime, running: true }
+    }
+
+    case 'CONSUME_COMPLETED_TIME': {
+      return { ...state, expired: false, stopped: false }
+    }
 
     default:
       return state
