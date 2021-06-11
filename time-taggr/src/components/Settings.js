@@ -69,7 +69,7 @@ const DurationForm = ({ selectedTag }) => {
   )
 }
 
-const AddTag = () => {
+const AddTag = ({isTimerRunning}) => {
   const dispatch = useDispatch()
 
   const handleKeyDown = event => {
@@ -86,7 +86,7 @@ const AddTag = () => {
   return (
     <div className="d-flex">
       <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter}>Add Tag</span>
-      <input className="" style={{ width: '8.2em' }} onKeyDown={handleKeyDown}></input>
+      <input className="" style={{ width: '8.2em' }} onKeyDown={handleKeyDown} disabled={isTimerRunning} ></input>
     </div>
   )
 }
@@ -128,7 +128,7 @@ const Settings = () => {
             <TagSelect selectedTag={selectedTag} options={options} dispatch={dispatch} isTimerRunning={isTimerRunning} />
           </ListGroup.Item>
           <ListGroup.Item>
-            <AddTag />
+            <AddTag isTimerRunning={isTimerRunning} />
           </ListGroup.Item>
         </ListGroup>
       </Card>
