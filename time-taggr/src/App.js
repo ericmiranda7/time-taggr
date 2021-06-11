@@ -14,12 +14,13 @@ const App = () => {
   }, [dispatch])
 
   return (
-    <div>
+    <div className="page-div d-flex flex-column">
       <NavigationBar />
-      <div className="container mt-4 d-flex flex-column align-items-center">
+      <div className="container mt-4 d-flex flex-column align-items-center main">
         <h2>{tags.find((tag) => tag.isSelected)?.name}</h2>
         <Timer />
         <Settings />
+        <a href="#" className="mt-auto">Settings</a>
       </div>
     </div>
   )
