@@ -58,7 +58,7 @@ const DurationForm = ({ selectedTag, isTimerRunning }) => {
       <div className="d-flex flex-row">
         <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Work</span>
         <input className="mr-1" disabled={isTimerRunning} type="number" onChange={hoursChangeHandler} onBlur={clearInput} style={styles.duration} name="hours" placeholder={selectedTagTime.hours + 'H'} />
-        <input type="number" odisabled={isTimerRunning} nChange={minutesChangeHandler} onBlur={clearInput} style={styles.duration} name="minutes" placeholder={selectedTagTime.minutes + 'M'} />
+        <input type="number" disabled={isTimerRunning} onChange={minutesChangeHandler} onBlur={clearInput} style={styles.duration} name="minutes" placeholder={selectedTagTime.minutes + 'M'} />
       </div>
       <div className="d-flex flex-row mt-1">
         <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Break</span>
@@ -122,7 +122,7 @@ const Settings = () => {
         <Card.Header>Settings</Card.Header>
         <ListGroup variant="flush">
           <ListGroup.Item>
-            <DurationForm selectedTag={selectedTag} isTimerRUnning={isTimerRunning} />
+            <DurationForm selectedTag={selectedTag} isTimerRunning={isTimerRunning} />
           </ListGroup.Item>
           <ListGroup.Item>
             <TagSelect selectedTag={selectedTag} options={options} dispatch={dispatch} isTimerRunning={isTimerRunning} />
