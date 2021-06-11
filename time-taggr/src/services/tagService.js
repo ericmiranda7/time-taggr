@@ -7,6 +7,11 @@ const getAll = async () => {
   return response.data
 }
 
-const services = { getAll }
+const createTag = async (tag) => {
+  const response = await axios.post(baseUrl, tag)
+  return response.data
+}
+
+const services = { getAll, createTag }
 
 export default services

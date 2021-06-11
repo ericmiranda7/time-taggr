@@ -91,7 +91,7 @@ const AddTag = () => {
   )
 }
 
-const TagSelect = ({ selectedTag, options, dispatch }) => {
+const TagSelect = ({ options, dispatch }) => {
   const onTagSelected = itemSelected => {
     dispatch(makeSelected(itemSelected.value))
   }
@@ -109,6 +109,7 @@ const TagSelect = ({ selectedTag, options, dispatch }) => {
 const Settings = () => {
   const tags = useSelector(state => state.tags)
   const selectedTag = tags.find(tag => tag.isSelected)
+  console.log(selectedTag)
   const dispatch = useDispatch()
 
   const options = tags.map(tag => { return { value: tag.value, label: tag.name } })

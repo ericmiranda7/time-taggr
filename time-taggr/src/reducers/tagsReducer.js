@@ -38,9 +38,12 @@ export const getAllTags = () => {
 }
 
 export const addTag = (tag) => {
-  return {
-    type: 'ADD_TAG',
-    payload: { tag: { ...tag, completedTime: 0, duration: 25 } }
+  return async dispatch => {
+    const savedTag = await tagService.createTag(tag)
+    dispatch({
+      type: 'ADD_TAG',
+      payload: { tag: savedTag }
+    })
   }
 }
 
@@ -75,7 +78,8 @@ const tagsReducer = (state = initialState, action) => {
       return [...action.payload.tags]
 
     case 'ADD_TAG':
-      return state.concat(action.payload.tag)
+      console.log(action.payload.tag)
+      return state.map(tag => { return { ...tag, isSelected: false } }).concat(action.payload.tag)
 
     case 'MAKE_SELECTED':
       return state.map(tag => tag.name === action.payload.tagName ? { ...tag, isSelected: true } : { ...tag, isSelected: false })

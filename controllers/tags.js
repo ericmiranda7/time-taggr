@@ -12,9 +12,15 @@ tagsRouter.post('/', async (request, response) => {
 
   tag.name = tag.name.charAt(0).toUpperCase() + tag.name.slice(1)
   tag.value = tag.name.toLowerCase()
-  tag.isSelected = tag.isSelected || false
+  tag.isSelected = true
   tag.duration = 25
   tag.completedTime = 0
+
+  // set all previous tags selected to false
+  Tag.updateMany({}, {isSelected: false}, (error, docs) => {
+    if (error) console.log('e ', error)
+    else console.log('docs upd ', docs)
+  })
 
   const tagToSave = new Tag(tag)
   const savedTag = await tagToSave.save()
