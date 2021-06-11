@@ -85,7 +85,10 @@ const Timer = () => {
       <Clock timer={timer} />
       <div className="align-items-center mt-3">
         <TimerControls timer={timer} dispatch={dispatch} selectedTag={selectedTag} />
-        <p className="text-center">Completed time tag: {selectedTag?.completedTime} seconds</p>
+        {selectedTag.completedTime > 0
+        ? <p className="text-center">You have completed {selectedTag?.completedTime} seconds of {selectedTag.name.toLowerCase()}</p> 
+        : <p className="text-center">You haven't put in any time on {selectedTag.name.toLowerCase()}</p>}
+        
       </div>
     </div>
   )
