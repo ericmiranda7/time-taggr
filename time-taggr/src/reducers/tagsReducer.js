@@ -2,25 +2,36 @@ import tagService from '../services/tagService'
 
 const initialState = [
   {
-    name: 'Study',
+    name: 'study',
     color: 'blue',
     isSelected: true,
     duration: 25,
-    completedTime: 0
+    completedTime: 0,
+    id: 1,
   },
   {
-    name: 'Read',
+    name: 'workout',
     color: 'green',
     isSelected: false,
     duration: 25,
     completedTime: 0,
+    id: 2,
   },
   {
-    name: 'Break',
+    name: 'break',
     color: 'white',
     isSelected: false,
     duration: 70,
     completedTime: 0,
+    id: 3,
+  },
+  {
+    name: 'read',
+    color: 'orange',
+    isSelected: false,
+    duration: 50,
+    completedTime: 0,
+    id: 4
   }
 ]
 
@@ -66,7 +77,6 @@ export const addCompletedTime = (tagName, completedTime) => {
 const tagsReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'INIT_TAG':
-      console.log(...action.payload.tags)
       return [...action.payload.tags]
 
     case 'ADD_TAG':

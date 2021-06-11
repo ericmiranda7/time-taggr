@@ -1,6 +1,7 @@
 import { Card, ListGroup } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { makeSelected, addTag, setBreakDuration, setTagDuration } from '../reducers/tagsReducer'
+import Select from 'react-select'
 
 const styles = {
   duration: {
@@ -12,10 +13,9 @@ const styles = {
   }
 }
 
-const DurationForm = ({selectedTag}) => {
-  const timer = useSelector(state => state.timer)
+const DurationForm = ({ selectedTag }) => {
   const breakTime = useSelector(state => {
-    const breakTag = state.tags.find(tag => tag.name === 'Break')
+    const breakTag = state.tags.find(tag => tag.name === 'break')
     return {
       minutes: breakTag.duration % 60,
       hours: (breakTag.duration / 60 | 0)
@@ -69,25 +69,6 @@ const DurationForm = ({selectedTag}) => {
   )
 }
 
-const TagSelect = () => {
-  const tags = useSelector(state => state.tags)
-  const dispatch = useDispatch()
-
-  const onTagSelected = event => {
-    const tagName = event.target.value
-    dispatch(makeSelected(tagName))
-  }
-
-  return (
-    <div className="d-flex">
-      <span className="flex-grow-1" >Select Tag</span>
-      <select onChange={onTagSelected} style={{ width: '8.2em' }} defaultValue={tags.filter(tag => tag.isSelected).name}>
-        {tags.map((tag, i) => <option key={i} value={tag.name}>{tag.name}</option>)}
-      </select>
-    </div>
-  )
-}
-
 const AddTag = () => {
   const dispatch = useDispatch()
 
@@ -110,8 +91,27 @@ const AddTag = () => {
   )
 }
 
+const TagSelect = ({ selectedTag, options, dispatch }) => {
+  const onTagSelected = itemSelected => {
+    dispatch(makeSelected(itemSelected.value))
+  }
+
+  return (
+    <div className="d-flex">
+      <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Select Tag</span>
+      <div style={{ width: '8.2em' }}>
+        <Select options={options} onChange={onTagSelected} />
+      </div>
+    </div>
+  )
+}
+
 const Settings = () => {
-  const selectedTag = useSelector(state => state.tags.find(tag => tag.isSelected))
+  const tags = useSelector(state => state.tags)
+  const selectedTag = tags.find(tag => tag.isSelected)
+  const dispatch = useDispatch()
+
+  const options = tags.map(tag => { return { value: tag.name, label: tag.name } })
 
   return (
     <div className="d-flex justify-content-center">
@@ -122,7 +122,7 @@ const Settings = () => {
             <DurationForm selectedTag={selectedTag} />
           </ListGroup.Item>
           <ListGroup.Item>
-            <TagSelect />
+            <TagSelect selectedTag={selectedTag} options={options} dispatch={dispatch} />
           </ListGroup.Item>
           <ListGroup.Item>
             <AddTag />
