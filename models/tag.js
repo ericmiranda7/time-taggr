@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 
 const tagSchema = new mongoose.Schema({
   name: String,
+  value: String,
   color: String,
   isSelected: Boolean,
   duration: Number,

@@ -15,7 +15,7 @@ const styles = {
 
 const DurationForm = ({ selectedTag }) => {
   const breakTime = useSelector(state => {
-    const breakTag = state.tags.find(tag => tag.name === 'break')
+    const breakTag = state.tags.find(tag => tag.value === 'break')
     return {
       minutes: breakTag.duration % 60,
       hours: (breakTag.duration / 60 | 0)
@@ -111,7 +111,7 @@ const Settings = () => {
   const selectedTag = tags.find(tag => tag.isSelected)
   const dispatch = useDispatch()
 
-  const options = tags.map(tag => { return { value: tag.name, label: tag.name } })
+  const options = tags.map(tag => { return { value: tag.value, label: tag.name } })
 
   return (
     <div className="d-flex justify-content-center">

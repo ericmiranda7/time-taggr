@@ -2,7 +2,7 @@ POST http://localhost:3001/api/tags
 Content-Type: application/json
 
 {
-  "name": "TRUE TAG",
+  "name": "Break",
   "color": "green",
   "isSelected": "true"
 }

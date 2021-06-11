@@ -2,7 +2,8 @@ import tagService from '../services/tagService'
 
 const initialState = [
   {
-    name: 'study',
+    name: 'Study',
+    value: 'study',
     color: 'blue',
     isSelected: true,
     duration: 25,
@@ -10,7 +11,8 @@ const initialState = [
     id: 1,
   },
   {
-    name: 'workout',
+    name: 'Workout',
+    value: 'workout',
     color: 'green',
     isSelected: false,
     duration: 25,
@@ -18,21 +20,14 @@ const initialState = [
     id: 2,
   },
   {
-    name: 'break',
+    name: 'Break',
+    value: 'break',
     color: 'white',
     isSelected: false,
     duration: 70,
     completedTime: 0,
     id: 3,
   },
-  {
-    name: 'read',
-    color: 'orange',
-    isSelected: false,
-    duration: 50,
-    completedTime: 0,
-    id: 4
-  }
 ]
 
 export const getAllTags = () => {
