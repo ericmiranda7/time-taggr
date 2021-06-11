@@ -91,7 +91,7 @@ const AddTag = () => {
   )
 }
 
-const TagSelect = ({ options, dispatch }) => {
+const TagSelect = ({ options, dispatch, isTimerRunning }) => {
   const onTagSelected = itemSelected => {
     dispatch(makeSelected(itemSelected.value))
   }
@@ -100,7 +100,7 @@ const TagSelect = ({ options, dispatch }) => {
     <div className="d-flex">
       <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Select Tag</span>
       <div style={{ width: '8.2em' }}>
-        <Select options={options} onChange={onTagSelected} />
+        <Select options={options} onChange={onTagSelected} isDisabled={isTimerRunning}/>
       </div>
     </div>
   )
@@ -109,7 +109,9 @@ const TagSelect = ({ options, dispatch }) => {
 const Settings = () => {
   const tags = useSelector(state => state.tags)
   const selectedTag = tags.find(tag => tag.isSelected)
-  console.log(selectedTag)
+
+  const isTimerRunning = useSelector(state => state.timer.running || state.timer.pause)
+
   const dispatch = useDispatch()
 
   const options = tags.map(tag => { return { value: tag.value, label: tag.name } })
@@ -123,7 +125,7 @@ const Settings = () => {
             <DurationForm selectedTag={selectedTag} />
           </ListGroup.Item>
           <ListGroup.Item>
-            <TagSelect selectedTag={selectedTag} options={options} dispatch={dispatch} />
+            <TagSelect selectedTag={selectedTag} options={options} dispatch={dispatch} isTimerRunning={isTimerRunning} />
           </ListGroup.Item>
           <ListGroup.Item>
             <AddTag />
