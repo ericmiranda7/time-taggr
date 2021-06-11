@@ -75,7 +75,7 @@ const Timer = () => {
 
   useEffect(() => {
     if (timer.expired || timer.stopped) {
-      dispatch(addCompletedTime(selectedTag?.name, timer.completedTime))
+      dispatch(addCompletedTime(selectedTag?.value, timer.completedTime))
       dispatch(consumeCompletedTime())
     }
   }, [dispatch, selectedTag, timer])

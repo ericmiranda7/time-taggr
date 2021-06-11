@@ -47,28 +47,28 @@ export const addTag = (tag) => {
   }
 }
 
-export const makeSelected = tagName => {
+export const makeSelected = tagValue => {
   return {
     type: 'MAKE_SELECTED',
-    payload: { tagName }
+    payload: { tagValue }
   }
 }
 
 export const setBreakDuration = (duration) => {
-  return setTagDuration(duration, 'Break')
+  return setTagDuration(duration, 'break')
 }
 
-export const setTagDuration = (duration, tagName) => {
+export const setTagDuration = (duration, tagValue) => {
   return {
     type: 'SET_TAG_DURATION',
-    payload: { duration, tagName }
+    payload: { duration, tagValue }
   }
 }
 
-export const addCompletedTime = (tagName, completedTime) => {
+export const addCompletedTime = (tagValue, completedTime) => {
   return {
     type: 'ADD_COMPLETION',
-    payload: { tagName, completedTime }
+    payload: { tagValue, completedTime }
   }
 }
 
@@ -82,14 +82,14 @@ const tagsReducer = (state = initialState, action) => {
       return state.map(tag => { return { ...tag, isSelected: false } }).concat(action.payload.tag)
 
     case 'MAKE_SELECTED':
-      return state.map(tag => tag.name === action.payload.tagName ? { ...tag, isSelected: true } : { ...tag, isSelected: false })
+      return state.map(tag => tag.value === action.payload.tagValue ? { ...tag, isSelected: true } : { ...tag, isSelected: false })
 
     case 'SET_TAG_DURATION':
-      if (action.payload.tagName === 'Break') return state.map(tag => tag.name === 'Break' ? { ...tag, duration: action.payload.duration } : tag)
+      if (action.payload.tagValue === 'Break') return state.map(tag => tag.value === 'break' ? { ...tag, duration: action.payload.duration } : tag)
       else return state.map(tag => tag.isSelected ? { ...tag, duration: action.payload.duration } : tag)
 
     case 'ADD_COMPLETION':
-      return state.map(tag => tag.name === action.payload.tagName ? { ...tag, completedTime: tag.completedTime + action.payload.completedTime } : tag)
+      return state.map(tag => tag.value === action.payload.tagValue ? { ...tag, completedTime: tag.completedTime + action.payload.completedTime } : tag)
 
     default:
       return state
