@@ -57,7 +57,7 @@ const DurationForm = ({ selectedTag }) => {
     <div className="d-flex justify-content-end flex-column">
       <div className="d-flex flex-row">
         <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Work</span>
-        <input className="mr-1" type="number" onChange={hoursChangeHandler} onBlur={clearInput} style={styles.duration} name="hours" placeholder={selectedTagTime + 'H'} />
+        <input className="mr-1" type="number" onChange={hoursChangeHandler} onBlur={clearInput} style={styles.duration} name="hours" placeholder={selectedTagTime.hours + 'H'} />
         <input type="number" onChange={minutesChangeHandler} onBlur={clearInput} style={styles.duration} name="minutes" placeholder={selectedTagTime.minutes + 'M'} />
       </div>
       <div className="d-flex flex-row mt-1">
