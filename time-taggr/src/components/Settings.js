@@ -13,7 +13,7 @@ const styles = {
   }
 }
 
-const DurationForm = ({ selectedTag }) => {
+const DurationForm = ({ selectedTag, isTimerRunning }) => {
   const breakTime = useSelector(state => {
     const breakTag = state.tags.find(tag => tag.value === 'break')
     return {
@@ -57,13 +57,13 @@ const DurationForm = ({ selectedTag }) => {
     <div className="d-flex justify-content-end flex-column">
       <div className="d-flex flex-row">
         <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Work</span>
-        <input className="mr-1" type="number" onChange={hoursChangeHandler} onBlur={clearInput} style={styles.duration} name="hours" placeholder={selectedTagTime.hours + 'H'} />
-        <input type="number" onChange={minutesChangeHandler} onBlur={clearInput} style={styles.duration} name="minutes" placeholder={selectedTagTime.minutes + 'M'} />
+        <input className="mr-1" disabled={isTimerRunning} type="number" onChange={hoursChangeHandler} onBlur={clearInput} style={styles.duration} name="hours" placeholder={selectedTagTime.hours + 'H'} />
+        <input type="number" odisabled={isTimerRunning} nChange={minutesChangeHandler} onBlur={clearInput} style={styles.duration} name="minutes" placeholder={selectedTagTime.minutes + 'M'} />
       </div>
       <div className="d-flex flex-row mt-1">
         <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Break</span>
-        <input className="mr-1" type="number" onBlur={clearInput} onChange={hoursChangeHandler} style={styles.duration} name="breakHours" placeholder={breakTime.hours + 'H'} />
-        <input type="number" onChange={minutesChangeHandler} onBlur={clearInput} style={styles.duration} name="breakMinutes" placeholder={breakTime.minutes + 'M'} />
+        <input className="mr-1" disabled={isTimerRunning} type="number" onBlur={clearInput} onChange={hoursChangeHandler} style={styles.duration} name="breakHours" placeholder={breakTime.hours + 'H'} />
+        <input type="number" disabled={isTimerRunning} onChange={minutesChangeHandler} onBlur={clearInput} style={styles.duration} name="breakMinutes" placeholder={breakTime.minutes + 'M'} />
       </div>
     </div>
   )
@@ -122,7 +122,7 @@ const Settings = () => {
         <Card.Header>Settings</Card.Header>
         <ListGroup variant="flush">
           <ListGroup.Item>
-            <DurationForm selectedTag={selectedTag} />
+            <DurationForm selectedTag={selectedTag} isTimerRUnning={isTimerRunning} />
           </ListGroup.Item>
           <ListGroup.Item>
             <TagSelect selectedTag={selectedTag} options={options} dispatch={dispatch} isTimerRunning={isTimerRunning} />
