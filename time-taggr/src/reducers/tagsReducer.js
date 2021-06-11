@@ -85,7 +85,7 @@ const tagsReducer = (state = initialState, action) => {
       return state.map(tag => tag.value === action.payload.tagValue ? { ...tag, isSelected: true } : { ...tag, isSelected: false })
 
     case 'SET_TAG_DURATION':
-      if (action.payload.tagValue === 'Break') return state.map(tag => tag.value === 'break' ? { ...tag, duration: action.payload.duration } : tag)
+      if (action.payload.tagValue === 'break') return state.map(tag => tag.value === 'break' ? { ...tag, duration: action.payload.duration } : tag)
       else return state.map(tag => tag.isSelected ? { ...tag, duration: action.payload.duration } : tag)
 
     case 'ADD_COMPLETION':
