@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/App.css"],"names":[],"mappings":"AAAA,gCACE,YACF,CAEA,KACE,kCACF","file":"main.2f5ba622.chunk.css","sourcesContent":["html, body, #root, .page-div, .main {\n  height: 100vh;\n}\n\nbody {\n  font-family: 'Open Sans', sans-serif;;\n}"]}
