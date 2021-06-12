@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build:ui": "rm -rf build && cd time-taggr/ && npm run build --prod && cp -r build ../",
-    "deploy": "git push heroku production:main",
-    "deploy:full": "git checkout production && git rebase main && npm run build:ui && git add . && git commit -m uibuild && git push heroku production:main && npm run deploy",
+    "deploy": "git push origin production",
+    "deploy:full": "git checkout production && npm run build:ui && git add . && git commit -m uibuild && git push origin production && npm run deploy",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

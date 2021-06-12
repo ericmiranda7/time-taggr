@@ -18,7 +18,7 @@ const App = () => {
   return (
     <div className="page-div d-flex flex-column">
       <NavigationBar />
-      <div className="container mt-4 d-flex flex-column align-items-center main">
+      <div className="container mt-3 d-flex flex-column align-items-center main">
         <Switch>
           <Route path="/settings">
             <Settings />
