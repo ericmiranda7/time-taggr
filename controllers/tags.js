@@ -17,7 +17,7 @@ tagsRouter.post('/', async (request, response) => {
   tag.completedTime = 0
 
   // set all previous tags selected to false
-  Tag.updateMany({}, {isSelected: false}, (error, docs) => {
+  Tag.updateMany({}, { isSelected: false }, (error, docs) => {
     if (error) console.log('e ', error)
     else console.log('docs upd ', docs)
   })

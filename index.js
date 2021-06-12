@@ -18,10 +18,14 @@ app.use(requestLogger)
 app.use(express.static('build'))
 app.use('/api/tags', tagsRouter)
 
-const unkownEndpoint = (request, response) => {
+/* const unkownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unkown endpoint' })
 }
-app.use(unkownEndpoint)
+app.use(unkownEndpoint) */
+
+app.get('*', (req, res) => {
+  res.sendFile('./build/index.html');
+});
 
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true,
