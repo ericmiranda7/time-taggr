@@ -4,7 +4,7 @@
   "description": "backend api for time-taggr",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "cd time-taggr/ && npm install && npm run build",
+    "heroku-postbuild": "rm -r build/ && cd time-taggr/ && npm install && npm run build && mv build/ ../build",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
