@@ -2,8 +2,18 @@ import { Route, Switch } from 'react-router'
 import NavigationBar from './components/NavigationBar'
 import Home from './components/Home'
 import Settings from './components/Settings'
+import { useEffect } from 'react'
+import { getAllTags } from './reducers/tagsReducer'
+import { useDispatch, useSelector } from 'react-redux'
 
 const App = () => {
+  const tags = useSelector(state => state.tags)
+  const dispatch = useDispatch()
+  console.log('app render')
+
+  useEffect(() => {
+    dispatch(getAllTags())
+  }, [dispatch])
 
   return (
     <div className="page-div d-flex flex-column">
@@ -14,10 +24,9 @@ const App = () => {
             <Settings />
           </Route>
           <Route path="/">
-            <Home/>
+            <Home tags={tags}/>
           </Route>
         </Switch>
-
       </div>
     </div>
   )

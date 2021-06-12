@@ -1,19 +1,18 @@
+import { useState } from 'react'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const NavigationBar = () => {
+  const [navExpanded, setNavExpanded] = useState(false)
+
   return (
-    <Navbar bg="dark" expand="lg" variant="dark">
+    <Navbar bg="dark" expand="lg" variant="dark" onToggle={() => setNavExpanded(!navExpanded)} expanded={navExpanded}>
       <Navbar.Brand href="#home">Time-Taggr</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <div>
-            <Link to="/">Home</Link>
-          </div>
-          <div >
-            <Link to="/settings">Settings</Link>
-          </div>
+        <Nav className="me-auto nav" id="navbar">
+          <Link to="/" className="nav-link" onClick={() => setNavExpanded(!navExpanded)}>Home</Link>
+          <Link to="/settings" className="nav-link" onClick={() => setNavExpanded(!navExpanded)} >Settings</Link>
           <NavDropdown title="Dropdown" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

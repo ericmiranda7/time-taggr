@@ -61,7 +61,11 @@ const TimerControls = ({ timer, dispatch, selectedTag }) => {
 }
 
 const Timer = () => {
-  const timer = useSelector(state => state.timer)
+  const timer = useSelector(state => { 
+    console.log('timer updated')
+    return state.timer })
+  console.log(timer.running)
+
   const selectedTag = useSelector(({ tags }) => {
     return tags.find(tag => {
       return tag.isSelected
@@ -70,8 +74,8 @@ const Timer = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(setDuration(selectedTag || 0))
-  }, [dispatch, selectedTag])
+    if (!(timer.running || timer.pause)) dispatch(setDuration(selectedTag || 0))
+  }, [dispatch, selectedTag, timer.pause, timer.running])
 
   useEffect(() => {
     if (timer.expired || timer.stopped) {
@@ -85,10 +89,11 @@ const Timer = () => {
       <Clock timer={timer} />
       <div className="align-items-center mt-3">
         <TimerControls timer={timer} dispatch={dispatch} selectedTag={selectedTag} />
+
         {selectedTag.completedTime > 0
-        ? <p className="text-center">You have completed {selectedTag?.completedTime} seconds of {selectedTag.name.toLowerCase()}</p> 
-        : <p className="text-center">You haven't put in any time on {selectedTag.name.toLowerCase()}</p>}
-        
+          ? <p className="text-center">You have completed {selectedTag?.completedTime} seconds of {selectedTag.name.toLowerCase()}</p>
+          : <p className="text-center">You haven't put in any time on {selectedTag.name.toLowerCase()}</p>}
+
       </div>
     </div>
   )
