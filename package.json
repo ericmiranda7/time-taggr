@@ -4,7 +4,7 @@
   "description": "backend api for time-taggr",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix client && npm run build --prefix client",
+    "heroku-postbuild": "npm install --prefix time-taggr && npm run build --prefix time-taggr",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
