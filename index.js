@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const path = require('path')
 const config = require('./utils/config')
 const tagsRouter = require('./controllers/tags')
 
@@ -15,7 +16,7 @@ const requestLogger = (request, response, next) => {
 }
 app.use(requestLogger)
 
-app.use(express.static('build'))
+app.use(express.static(path.resolve(__dirname, './build')))
 app.use('/api/tags', tagsRouter)
 
 /* const unkownEndpoint = (request, response) => {
@@ -24,7 +25,7 @@ app.use('/api/tags', tagsRouter)
 app.use(unkownEndpoint) */
 
 app.get('*', (req, res) => {
-  res.sendFile('./build/index.html');
+  res.sendFile(path.resolve(__dirname, './build', 'index.html'));
 });
 
 mongoose.connect(config.MONGODB_URI, {
