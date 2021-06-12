@@ -92,7 +92,7 @@ const Timer = () => {
 
         {selectedTag.completedTime > 0
           ? <p className="text-center">You have completed {selectedTag?.completedTime} seconds of {selectedTag.name.toLowerCase()}</p>
-          : <p className="text-center">You haven't put in any time on {selectedTag.name.toLowerCase()}</p>}
+          : <p className="text-center">You haven't put in any time on tag: {selectedTag.name}</p>}
 
       </div>
     </div>
