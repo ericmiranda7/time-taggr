@@ -7,7 +7,7 @@ const NavigationBar = () => {
 
   return (
     <Navbar bg="dark" expand="lg" variant="dark" onToggle={() => setNavExpanded(!navExpanded)} expanded={navExpanded}>
-      <Navbar.Brand href="#home">Time-Taggr</Navbar.Brand>
+      <Link to="/" className="navbar-brand">Time-Taggr</Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto nav" id="navbar">
