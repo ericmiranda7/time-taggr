@@ -127,6 +127,9 @@ const Settings = () => {
         <Card.Header>Settings</Card.Header>
         <ListGroup variant="flush">
           <ListGroup.Item>
+            <div className="text-center">{selectedTag.name}</div>
+          </ListGroup.Item>
+          <ListGroup.Item>
             <DurationForm selectedTag={selectedTag} isTimerRunning={isTimerRunning} />
           </ListGroup.Item>
           <ListGroup.Item>
