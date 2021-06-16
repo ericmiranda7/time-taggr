@@ -70,7 +70,7 @@ const DurationForm = ({ selectedTag, isTimerRunning }) => {
   )
 }
 
-const AddTag = ({isTimerRunning}) => {
+const AddTag = ({ isTimerRunning }) => {
   const dispatch = useDispatch()
 
   const handleKeyDown = event => {
@@ -92,7 +92,9 @@ const AddTag = ({isTimerRunning}) => {
   )
 }
 
-const TagSelect = ({ options, dispatch, isTimerRunning }) => {
+export const TagSelect = ({ options, dispatch, isTimerRunning }) => {
+  const selectedTag = useSelector(state => state.tags.find(tag => tag.isSelected))
+  const selectedValue = { value: selectedTag.value, label: selectedTag.name }
   const onTagSelected = itemSelected => {
     dispatch(makeSelected(itemSelected.value))
   }
@@ -101,7 +103,7 @@ const TagSelect = ({ options, dispatch, isTimerRunning }) => {
     <div className="d-flex">
       <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Select Tag</span>
       <div style={{ width: '8.2em' }}>
-        <Select options={options} onChange={onTagSelected} isDisabled={isTimerRunning}/>
+        <Select options={options} onChange={onTagSelected} isDisabled={isTimerRunning} value={selectedValue} />
       </div>
     </div>
   )

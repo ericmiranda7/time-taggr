@@ -1,4 +1,5 @@
 import Timer from './Timer'
+import { TagSelect } from './Settings'
 
 const Home = ({ tags }) => {
 
