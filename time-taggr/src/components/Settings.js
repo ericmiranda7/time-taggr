@@ -119,7 +119,7 @@ const Settings = () => {
 
   const dispatch = useDispatch()
 
-  const options = tags.map(tag => { return { value: tag.value, label: tag.name } })
+  const options = tags.map(tag => { return { value: tag.value, label: tag.name } }).filter(tag => tag.value !== 'break')
 
   return (
     <div className="d-flex justify-content-center">
