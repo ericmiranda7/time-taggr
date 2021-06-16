@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 const App = () => {
   const tags = useSelector(state => state.tags)
   const dispatch = useDispatch()
-  console.log('app render')
 
   useEffect(() => {
     dispatch(getAllTags())

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { startTimer, stopTimer, pauseTimer, consumeCompletedTime, setDuration, resumeTimer } from '../reducers/timerReducer'
-import { addCompletedTime } from '../reducers/tagsReducer'
+import { addCompletedTime, makeSelected, addTagToBreak } from '../reducers/tagsReducer'
 import { Button } from 'react-bootstrap'
 
 const Clock = ({ timer }) => {
@@ -35,10 +35,24 @@ const ControlButton = ({ variant, text, handleClick }) => {
 
 const TimerControls = ({ timer, dispatch, selectedTag }) => {
   const handleStartClick = () => startTimer(dispatch)
-  const handleStopClick = () => stopTimer(dispatch, selectedTag)
+  const handleStopClick = () => {
+    stopTimer(dispatch, selectedTag)
+    if (selectedTag.value === 'break') {
+      setTimeout(() => dispatch(makeSelected(selectedTag.workTag)), 500)
+    } else {
+      dispatch(setDuration(selectedTag.duration))
+    }
+  }
   const handlePauseClick = () => dispatch(pauseTimer())
   const handleResumeClick = () => resumeTimer(dispatch)
+  const handleBreakClick = () => {
+    dispatch(addTagToBreak(selectedTag.value))
+    dispatch(makeSelected('break'))
+    dispatch(setDuration({ duration: selectedTag.break}))
+    startTimer(dispatch)
+  }
 
+  // timer NOT running
   if (!timer.running) {
     return (
       <div>
@@ -47,7 +61,13 @@ const TimerControls = ({ timer, dispatch, selectedTag }) => {
             <ControlButton variant="primary" text="Resume" handleClick={handleResumeClick} />
             <ControlButton variant="danger" text="Stop" handleClick={handleStopClick} />
           </div>
-          : <ControlButton variant="primary" text="Start" handleClick={handleStartClick} />}
+          : <div>
+            <ControlButton variant="primary" text="Start" handleClick={handleStartClick} />
+            {selectedTag.value !== 'break'
+              ? <ControlButton variant="success" text="Break" handleClick={handleBreakClick} />
+              : null}
+
+          </div>}
       </div>
     )
   } else {
@@ -61,10 +81,9 @@ const TimerControls = ({ timer, dispatch, selectedTag }) => {
 }
 
 const Timer = () => {
-  const timer = useSelector(state => { 
-    console.log('timer updated')
-    return state.timer })
-  console.log(timer.running)
+  const timer = useSelector(state => {
+    return state.timer
+  })
 
   const selectedTag = useSelector(({ tags }) => {
     return tags.find(tag => {
@@ -74,12 +93,15 @@ const Timer = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (!(timer.running || timer.pause)) dispatch(setDuration(selectedTag || 0))
+    if (!(timer.running || timer.pause)) {
+      if (selectedTag.value === 'break') dispatch(makeSelected(selectedTag.workTag))
+      else dispatch(setDuration(selectedTag || 0))
+    }
   }, [dispatch, selectedTag, timer.pause, timer.running])
 
   useEffect(() => {
     if (timer.expired || timer.stopped) {
-      dispatch(addCompletedTime(selectedTag?.value, timer.completedTime))
+      dispatch(addCompletedTime(selectedTag.value, timer.completedTime))
       dispatch(consumeCompletedTime())
     }
   }, [dispatch, selectedTag, timer])

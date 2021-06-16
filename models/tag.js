@@ -8,6 +8,7 @@ const tagSchema = new mongoose.Schema({
   color: String,
   isSelected: Boolean,
   duration: Number,
+  break: Number,
   completedTime: Number,
 })
 

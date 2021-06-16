@@ -1,5 +1,6 @@
 const tagsRouter = require('express').Router()
 const Tag = require('../models/tag')
+const tagUtils = require('../utils/tagUtils')
 
 tagsRouter.get('/', async (request, response) => {
   const tags = await Tag.find({})
@@ -8,13 +9,7 @@ tagsRouter.get('/', async (request, response) => {
 })
 
 tagsRouter.post('/', async (request, response) => {
-  const tag = request.body
-
-  tag.name = tag.name.charAt(0).toUpperCase() + tag.name.slice(1)
-  tag.value = tag.name.toLowerCase()
-  tag.isSelected = true
-  tag.duration = 25
-  tag.completedTime = 0
+  const tag = tagUtils.processTag(request.body)
 
   // set all previous tags selected to false
   Tag.updateMany({}, { isSelected: false }, (error, docs) => {

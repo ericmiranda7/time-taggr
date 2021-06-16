@@ -1,3 +1,5 @@
+import { addCompletedTime, makeSelected } from "./tagsReducer"
+
 const initialState = {
   startTime: null,
   running: false,
@@ -35,8 +37,8 @@ export const startTimer = dispatch => {
 
 export const stopTimer = (dispatch, tag) => {
   clearInterval(interval)
-  dispatch(setDuration(tag))
   dispatch({ type: 'STOP_TIMER' })
+  dispatch(setDuration(tag))
 }
 
 export const pauseTimer = () => {
@@ -115,7 +117,7 @@ const timerReducer = (state = initialState, action) => {
     }
 
     case 'CONSUME_COMPLETED_TIME': {
-      return { ...state, expired: false, stopped: false }
+      return { ...state, expired: false, stopped: false, running: false }
     }
 
     default:

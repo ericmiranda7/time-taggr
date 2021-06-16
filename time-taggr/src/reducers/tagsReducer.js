@@ -9,24 +9,17 @@ const initialState = [
     duration: 25,
     completedTime: 0,
     id: 1,
-  },
-  {
-    name: 'Workout',
-    value: 'workout',
-    color: 'green',
-    isSelected: false,
-    duration: 25,
-    completedTime: 0,
-    id: 2,
+    break: 5,
   },
   {
     name: 'Break',
     value: 'break',
     color: 'white',
     isSelected: false,
-    duration: 70,
+    duration: 25,
     completedTime: 0,
     id: 3,
+    break: 25,
   },
 ]
 
@@ -50,6 +43,13 @@ export const addTag = (tag) => {
 export const makeSelected = tagValue => {
   return {
     type: 'MAKE_SELECTED',
+    payload: { tagValue }
+  }
+}
+
+export const addTagToBreak = tagValue => {
+  return {
+    type: 'SAVE_WORK_TAG_TO_BREAK',
     payload: { tagValue }
   }
 }
@@ -90,6 +90,9 @@ const tagsReducer = (state = initialState, action) => {
 
     case 'ADD_COMPLETION':
       return state.map(tag => tag.value === action.payload.tagValue ? { ...tag, completedTime: tag.completedTime + action.payload.completedTime } : tag)
+
+    case 'SAVE_WORK_TAG_TO_BREAK':
+      return state.map(tag => tag.value === 'break' ? {...tag, workTag: action.payload.tagValue} : tag)
 
     default:
       return state

@@ -15,10 +15,10 @@ const styles = {
 
 const DurationForm = ({ selectedTag, isTimerRunning }) => {
   const breakTime = useSelector(state => {
-    const breakTag = state.tags.find(tag => tag.value === 'break')
+    const duration = selectedTag.break
     return {
-      minutes: breakTag.duration % 60,
-      hours: (breakTag.duration / 60 | 0)
+      minutes: duration % 60,
+      hours: (duration / 60 | 0)
     }
   })
   const selectedTagTime = {
