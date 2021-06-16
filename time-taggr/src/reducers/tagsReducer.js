@@ -18,12 +18,17 @@ export const getLocalTags = () => {
 }
 
 export const addTag = (tag) => {
-  return async dispatch => {
-    const savedTag = await tagService.createTag(tag)
-    dispatch({
-      type: 'ADD_TAG',
-      payload: { tag: savedTag }
-    })
+  /*   return async dispatch => {
+      //const savedTag = await tagService.createTag(tag)
+      dispatch({
+        type: 'ADD_TAG',
+        payload: { tag: tag }
+      })
+    } */
+  const cleanTag = tagService.processTag(tag)
+  return {
+    type: 'ADD_TAG',
+    payload: { tag: cleanTag }
   }
 }
 
@@ -42,10 +47,10 @@ export const addTagToBreak = tagValue => {
 }
 
 export const setBreakDuration = (duration, tagValue) => {
-   return {
-     type: 'SET_TAG_BREAK_DURATION',
-     payload: { duration, tagValue }
-   }
+  return {
+    type: 'SET_TAG_BREAK_DURATION',
+    payload: { duration, tagValue }
+  }
 }
 
 export const setTagDuration = (duration, tagValue) => {
@@ -78,13 +83,13 @@ const tagsReducer = (state = initialState, action) => {
       return state.map(tag => tag.isSelected ? { ...tag, duration: action.payload.duration } : tag)
 
     case 'SET_TAG_BREAK_DURATION':
-      return state.map(tag => tag.isSelected ? {...tag, break: action.payload.duration} : tag)
+      return state.map(tag => tag.isSelected ? { ...tag, break: action.payload.duration } : tag)
 
     case 'ADD_COMPLETION':
       return state.map(tag => tag.value === action.payload.tagValue ? { ...tag, completedTime: tag.completedTime + action.payload.completedTime } : tag)
 
     case 'SAVE_WORK_TAG_TO_BREAK':
-      return state.map(tag => tag.value === 'break' ? {...tag, workTag: action.payload.tagValue} : tag)
+      return state.map(tag => tag.value === 'break' ? { ...tag, workTag: action.payload.tagValue } : tag)
 
     default:
       return state

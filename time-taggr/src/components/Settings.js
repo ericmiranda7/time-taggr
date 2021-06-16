@@ -2,6 +2,7 @@ import { Card, ListGroup } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { makeSelected, addTag, setBreakDuration, setTagDuration } from '../reducers/tagsReducer'
 import Select from 'react-select'
+import { useEffect } from 'react'
 
 const styles = {
   duration: {
@@ -109,6 +110,10 @@ const TagSelect = ({ options, dispatch, isTimerRunning }) => {
 const Settings = () => {
   const tags = useSelector(state => state.tags)
   const selectedTag = tags.find(tag => tag.isSelected)
+
+  useEffect(() => {
+    window.localStorage.setItem('tags', JSON.stringify(tags))
+  }, [tags])
 
   const isTimerRunning = useSelector(state => state.timer.running || state.timer.pause)
 
