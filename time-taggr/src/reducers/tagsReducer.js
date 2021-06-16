@@ -54,8 +54,11 @@ export const addTagToBreak = tagValue => {
   }
 }
 
-export const setBreakDuration = (duration) => {
-  return setTagDuration(duration, 'break')
+export const setBreakDuration = (duration, tagValue) => {
+   return {
+     type: 'SET_TAG_BREAK_DURATION',
+     payload: { duration, tagValue }
+   }
 }
 
 export const setTagDuration = (duration, tagValue) => {
@@ -85,8 +88,10 @@ const tagsReducer = (state = initialState, action) => {
       return state.map(tag => tag.value === action.payload.tagValue ? { ...tag, isSelected: true } : { ...tag, isSelected: false })
 
     case 'SET_TAG_DURATION':
-      if (action.payload.tagValue === 'break') return state.map(tag => tag.value === 'break' ? { ...tag, duration: action.payload.duration } : tag)
-      else return state.map(tag => tag.isSelected ? { ...tag, duration: action.payload.duration } : tag)
+      return state.map(tag => tag.isSelected ? { ...tag, duration: action.payload.duration } : tag)
+
+    case 'SET_TAG_BREAK_DURATION':
+      return state.map(tag => tag.isSelected ? {...tag, break: action.payload.duration} : tag)
 
     case 'ADD_COMPLETION':
       return state.map(tag => tag.value === action.payload.tagValue ? { ...tag, completedTime: tag.completedTime + action.payload.completedTime } : tag)

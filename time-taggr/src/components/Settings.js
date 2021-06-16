@@ -30,7 +30,7 @@ const DurationForm = ({ selectedTag, isTimerRunning }) => {
   const hoursChangeHandler = (event) => {
     if (event.target.name.includes('break')) {
       const duration = Number(event.target.value) * 60 + breakTime.minutes
-      dispatch(setBreakDuration(duration))
+      dispatch(setBreakDuration(duration, selectedTag.value))
     }
     else {
       const duration = Number(event.target.value) * 60 + Number(selectedTagTime.minutes)
@@ -41,7 +41,7 @@ const DurationForm = ({ selectedTag, isTimerRunning }) => {
   const minutesChangeHandler = (event) => {
     if (event.target.name.includes('break')) {
       const duration = breakTime.hours * 60 + Number(event.target.value)
-      dispatch(setBreakDuration(duration))
+      dispatch(setBreakDuration(duration, selectedTag.value))
     }
     else {
       const duration = Number(event.target.value) + (Number(selectedTagTime.hours) * 60)
