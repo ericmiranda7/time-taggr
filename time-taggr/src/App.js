@@ -12,7 +12,6 @@ const App = () => {
 
   useEffect(() => {
     //dispatch(getAllTags()) db data
-    dispatch(getLocalTags())
   }, [])
 
   return (
