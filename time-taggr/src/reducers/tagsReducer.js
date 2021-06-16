@@ -1,32 +1,17 @@
 import tagService from '../services/tagService'
 
-const initialState = [
-  {
-    name: 'Study',
-    value: 'study',
-    color: 'blue',
-    isSelected: true,
-    duration: 25,
-    completedTime: 0,
-    id: 1,
-    break: 5,
-  },
-  {
-    name: 'Break',
-    value: 'break',
-    color: 'white',
-    isSelected: false,
-    duration: 25,
-    completedTime: 0,
-    id: 3,
-    break: 25,
-  },
-]
-
 export const getAllTags = () => {
   return async dispatch => {
     const tags = await tagService.getAll()
     dispatch({ type: 'INIT_TAG', payload: { tags } })
+  }
+}
+
+export const getLocalTags = () => {
+  const tags = tagService.getLocalData()
+  return {
+    type: 'INIT_TAG',
+    payload: { tags }
   }
 }
 
@@ -75,7 +60,7 @@ export const addCompletedTime = (tagValue, completedTime) => {
   }
 }
 
-const tagsReducer = (state = initialState, action) => {
+const tagsReducer = (state = null, action) => {
   switch (action.type) {
     case 'INIT_TAG':
       return [...action.payload.tags]

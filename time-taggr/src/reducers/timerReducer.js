@@ -1,5 +1,3 @@
-import { addCompletedTime, makeSelected } from "./tagsReducer"
-
 const initialState = {
   startTime: null,
   running: false,

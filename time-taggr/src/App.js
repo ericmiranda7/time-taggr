@@ -3,7 +3,7 @@ import NavigationBar from './components/NavigationBar'
 import Home from './components/Home'
 import Settings from './components/Settings'
 import { useEffect } from 'react'
-import { getAllTags } from './reducers/tagsReducer'
+import { getAllTags, getLocalTags } from './reducers/tagsReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
 const App = () => {
@@ -11,8 +11,9 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getAllTags())
-  }, [dispatch])
+    //dispatch(getAllTags()) db data
+    dispatch(getLocalTags())
+  }, [])
 
   return (
     <div className="page-div d-flex flex-column">
