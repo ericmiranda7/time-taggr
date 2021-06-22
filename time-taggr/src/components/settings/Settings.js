@@ -17,7 +17,6 @@ const Settings = () => {
 
   const dispatch = useDispatch()
 
-  const options = tags.map(tag => { return { value: tag.value, label: tag.name } }).filter(tag => tag.value !== 'break')
 
   return (
     <div className="d-flex justify-content-center">
@@ -31,7 +30,10 @@ const Settings = () => {
             <DurationForm selectedTag={selectedTag} isTimerRunning={isTimerRunning} />
           </ListGroup.Item>
           <ListGroup.Item>
-            <TagSelect selectedTag={selectedTag} options={options} dispatch={dispatch} isTimerRunning={isTimerRunning} />
+            <div className="d-flex">
+              <span className="d-inline-flex flex-grow-1 centered-text-span" >Select Tag</span>
+              <TagSelect isTimerRunning={isTimerRunning} width="8.2em" />
+            </div>
           </ListGroup.Item>
           <ListGroup.Item>
             <AddTag isTimerRunning={isTimerRunning} />

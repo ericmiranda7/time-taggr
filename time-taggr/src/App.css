@@ -9,3 +9,7 @@ body {
 .centered-text-span {
   align-items: center;
 }
+
+.width-button {
+  width: 175px;
+}
