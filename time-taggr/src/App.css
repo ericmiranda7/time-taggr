@@ -5,3 +5,7 @@ html, body, #root, .page-div, .main {
 body {
   font-family: 'Open Sans', sans-serif;;
 }
+
+.centered-text-span {
+  align-items: center;
+}

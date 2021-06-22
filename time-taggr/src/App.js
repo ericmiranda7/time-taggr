@@ -1,18 +1,11 @@
 import { Route, Switch } from 'react-router'
 import NavigationBar from './components/NavigationBar'
 import Home from './components/Home'
-import Settings from './components/Settings'
-import { useEffect } from 'react'
-import { getAllTags, getLocalTags } from './reducers/tagsReducer'
-import { useDispatch, useSelector } from 'react-redux'
+import Settings from './components/settings/Settings'
+import { useSelector } from 'react-redux'
 
 const App = () => {
   const tags = useSelector(state => state.tags)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    //dispatch(getAllTags()) db data
-  }, [])
 
   return (
     <div className="page-div d-flex flex-column">
