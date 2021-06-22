@@ -48,7 +48,7 @@ const TimerControls = ({ timer, dispatch, selectedTag }) => {
   const handleBreakClick = () => {
     dispatch(addTagToBreak(selectedTag.value))
     dispatch(makeSelected('break'))
-    dispatch(setDuration({ duration: selectedTag.break}))
+    dispatch(setDuration({ duration: selectedTag.break }))
     startTimer(dispatch)
   }
 
@@ -100,9 +100,17 @@ const Timer = () => {
   }, [dispatch, selectedTag, timer.pause, timer.running])
 
   useEffect(() => {
+    const expired = timer.expired
     if (timer.expired || timer.stopped) {
       dispatch(addCompletedTime(selectedTag.value, timer.completedTime))
       dispatch(consumeCompletedTime())
+
+      if (expired && selectedTag.value != 'break') {
+        dispatch(addTagToBreak(selectedTag.value))
+        dispatch(makeSelected('break'))
+        dispatch(setDuration({ duration: selectedTag.break }))
+        startTimer(dispatch)
+      }
     }
   }, [dispatch, selectedTag, timer])
 
@@ -112,7 +120,7 @@ const Timer = () => {
       <div className="align-items-center mt-3">
         <TimerControls timer={timer} dispatch={dispatch} selectedTag={selectedTag} />
 
-{/*         {selectedTag.completedTime > 0
+        {/*         {selectedTag.completedTime > 0
           ? <p className="text-center">You have completed {selectedTag?.completedTime} seconds of {selectedTag.name.toLowerCase()}</p>
           : <p className="text-center">You haven't put in any time on tag: {selectedTag.name}</p>} */}
 
