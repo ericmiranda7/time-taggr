@@ -73,7 +73,6 @@ const tagsReducer = (state = initialState, action) => {
       return [...action.payload.tags]
 
     case 'ADD_TAG':
-      console.log(action.payload.tag)
       return state.map(tag => { return { ...tag, isSelected: false } }).concat(action.payload.tag)
 
     case 'MAKE_SELECTED':

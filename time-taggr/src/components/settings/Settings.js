@@ -15,9 +15,6 @@ const Settings = () => {
 
   const isTimerRunning = useSelector(state => state.timer.running || state.timer.pause)
 
-  const dispatch = useDispatch()
-
-
   return (
     <div className="d-flex justify-content-center">
       <Card style={{ width: '18rem' }}>
