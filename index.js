@@ -4,9 +4,11 @@ const cors = require('cors')
 const path = require('path')
 const config = require('./utils/config')
 const tagsRouter = require('./controllers/tags')
+var enforce = require('express-sslify')
 
 const app = express()
 
+if (process.env.NODE_ENV === 'production') app.use(enforce.HTTPS({ trustProtoHeader: true }))
 app.use(cors())
 app.use(express.json())
 
