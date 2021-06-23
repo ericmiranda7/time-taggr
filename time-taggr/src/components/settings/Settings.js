@@ -1,5 +1,5 @@
 import { Card, ListGroup } from 'react-bootstrap'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import TagSelect from './TagSelect'
 import DurationForm from './DurationForm'
