@@ -6,21 +6,16 @@ import Clock from './Clock'
 import TimerControls from './TimerControls'
 
 const Timer = () => {
-  const timer = useSelector(state => {
-    return state.timer
-  })
-
-  const selectedTag = useSelector(({ tags }) => {
-    return tags.find(tag => {
-      return tag.isSelected
-    })
-  })
+  const timer = useSelector(state => state.timer)
   const dispatch = useDispatch()
 
+  const selectedTag = useSelector(({ tags }) => tags.find(tag => tag.isSelected))
+
   useEffect(() => {
+    // If the timer isn't running AND isn't paused
     if (!(timer.running || timer.pause)) {
       if (selectedTag.value === 'break') dispatch(makeSelected(selectedTag.workTag))
-      else dispatch(setDuration(selectedTag || 0))
+      else dispatch(setDuration(selectedTag))
     }
   }, [dispatch, selectedTag, timer.pause, timer.running])
 
@@ -30,7 +25,9 @@ const Timer = () => {
       dispatch(addCompletedTime(selectedTag.value, timer.completedTime))
       dispatch(consumeCompletedTime())
 
+      // if expired naturally
       if (expired && selectedTag.value !== 'break') {
+        // Start breaking
         dispatch(addTagToBreak(selectedTag.value))
         dispatch(makeSelected('break'))
         dispatch(setDuration({ duration: selectedTag.break }))

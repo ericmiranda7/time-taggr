@@ -12,18 +12,13 @@ const styles = {
 }
 
 const DurationForm = ({ selectedTag, isTimerRunning }) => {
-  const breakTime = useSelector(state => {
-    const duration = selectedTag.break
-    return {
-      minutes: duration % 60,
-      hours: (duration / 60 | 0)
-    }
-  })
+  const dispatch = useDispatch()
+
+  const breakTime = { minutes: selectedTag.break % 60, hours: selectedTag.break / 60 | 0}
   const selectedTagTime = {
     minutes: selectedTag.duration % 60,
     hours: (selectedTag.duration / 60 | 0)
   }
-  const dispatch = useDispatch()
 
   const hoursChangeHandler = (event) => {
     if (event.target.name.includes('break')) {

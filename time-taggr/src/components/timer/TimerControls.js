@@ -27,7 +27,6 @@ const TimerControls = ({ timer, dispatch, selectedTag }) => {
     startTimer(dispatch)
   }
 
-  // timer NOT running
   if (!timer.running) {
     return (
       <div>

@@ -16,7 +16,6 @@ const Home = () => {
 
 	useEffect(() => {
 		if (timer.expired && selectedTag.value !== 'break') {
-			console.log('done')
 			party.confetti(document.getElementById('tagName'), { count: party.variation.range(100, 200) })
 		}
 	})
