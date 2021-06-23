@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "heroku-postbuild": "rm -r build/ && cd time-taggr/ && npm install && npm run build && mv build/ ../build",
-    "start": "node NODE_ENV=production index.js",
-    "dev": "nodemon NODE_ENV=development index.js",
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
