@@ -4,6 +4,7 @@ import Home from './components/Home'
 import Stats from './components/Stats'
 import Settings from './components/settings/Settings'
 import { useSelector } from 'react-redux'
+import Login from './components/Login'
 
 const App = () => {
   const tags = useSelector(state => state.tags)
@@ -13,6 +14,9 @@ const App = () => {
       <NavigationBar />
       <div className="container mt-3 d-flex flex-column align-items-center main">
         <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
           <Route path="/stats">
             <Stats />
           </Route>
@@ -20,7 +24,7 @@ const App = () => {
             <Settings />
           </Route>
           <Route path="/">
-            <Home tags={tags}/>
+            <Home tags={tags} />
           </Route>
         </Switch>
       </div>
