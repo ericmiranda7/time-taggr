@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import party from "party-js"
 import { Alert } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
 	const tags = useSelector(state => state.tags)
@@ -24,8 +25,10 @@ const Home = () => {
 
 	return (
 		<div className="d-flex flex-column align-items-center mt-0">
-			<Alert variant="info">
-				{user}
+			<Alert variant="info" style={user === null ? null : { display: 'none' }}>
+				Hey ! Please consider{' '}
+				<Link className="alert-link" to="/login">logging in</Link>
+				{' '} to save your data
 			</Alert>
 			<div style={{ fontSize: '1.2em' }} className="mb-2" id="tagName"><TagSelect width="175px" /></div>
 			<Timer />
