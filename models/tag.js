@@ -22,4 +22,4 @@ tagSchema.set('toJSON', {
 
 const Tag = mongoose.model('Tag', tagSchema)
 
-module.exports = Tag
+module.exports = { Tag, tagSchema }

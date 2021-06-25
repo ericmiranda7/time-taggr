@@ -1,12 +1,18 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
+const { tagSchema } = require('./tag')
 
-const userSchema = {
+const userSchema = new mongoose.Schema({
   name: String,
-  userName: String,
+  username: {
+    type: String,
+    unique: true,
+  },
   passwordHash: String,
-}
+  tags: [tagSchema],
+})
 
 userSchema.set('toJSON', {
   transform: (document, returnedObject) => {
@@ -19,5 +25,6 @@ userSchema.set('toJSON', {
 
 // eslint-disable-next-line new-cap
 const User = new mongoose.model('User', userSchema)
+userSchema.plugin(uniqueValidator)
 
 module.exports = User

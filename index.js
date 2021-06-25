@@ -2,9 +2,10 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const path = require('path')
+const enforce = require('express-sslify')
 const config = require('./utils/config')
 const tagsRouter = require('./controllers/tags')
-var enforce = require('express-sslify')
+const usersRouter = require('./controllers/users')
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use(requestLogger)
 
 app.use(express.static(path.resolve(__dirname, './build')))
 app.use('/api/tags', tagsRouter)
+app.use('/api/users', usersRouter)
 
 /* const unkownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unkown endpoint' })

@@ -1,5 +1,5 @@
 const tagsRouter = require('express').Router()
-const Tag = require('../models/tag')
+const { Tag } = require('../models/tag')
 const tagUtils = require('../utils/tagUtils')
 
 tagsRouter.get('/', async (request, response) => {
