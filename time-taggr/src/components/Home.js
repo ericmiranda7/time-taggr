@@ -1,7 +1,7 @@
 import Timer from './timer/Timer'
 import TagSelect from './settings/TagSelect'
 import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import party from "party-js"
 import { Alert } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -12,6 +12,8 @@ const Home = () => {
 	const user = useSelector(state => state.user)
 
 	const selectedTag = tags.find(tag => tag.isSelected)
+
+	const [visible, setVisible] = useState(true)
 
 	useEffect(() => {
 		window.localStorage.setItem('tags', JSON.stringify(tags))
@@ -25,10 +27,11 @@ const Home = () => {
 
 	return (
 		<div className="d-flex flex-column align-items-center mt-0">
-			<Alert variant="info" style={user === null ? null : { display: 'none' }}>
+			<Alert variant="info" style={visible ? null : {display: 'none'}}>
 				Hey ! Please consider{' '}
 				<Link className="alert-link" to="/login">logging in</Link>
 				{' '} to save your data
+				<span onClick={() => setVisible(false)} style={{ cursor: 'pointer', position: 'relative', bottom: '10px', left: '5px'}}>x</span>
 			</Alert>
 			<div style={{ fontSize: '1.2em' }} className="mb-2" id="tagName"><TagSelect width="175px" /></div>
 			<Timer />
