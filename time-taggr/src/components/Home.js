@@ -3,10 +3,12 @@ import TagSelect from './settings/TagSelect'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import party from "party-js"
+import { Alert } from 'react-bootstrap'
 
 const Home = () => {
 	const tags = useSelector(state => state.tags)
 	const timer = useSelector(state => state.timer)
+	const user = useSelector(state => state.user)
 
 	const selectedTag = tags.find(tag => tag.isSelected)
 
@@ -22,6 +24,9 @@ const Home = () => {
 
 	return (
 		<div className="d-flex flex-column align-items-center mt-0">
+			<Alert variant="info">
+				{user}
+			</Alert>
 			<div style={{ fontSize: '1.2em' }} className="mb-2" id="tagName"><TagSelect width="175px" /></div>
 			<Timer />
 		</div>
