@@ -6,6 +6,7 @@ const enforce = require('express-sslify')
 const config = require('./utils/config')
 const tagsRouter = require('./controllers/tags')
 const usersRouter = require('./controllers/users')
+const loginRouter = require('./controllers/login')
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.use(requestLogger)
 app.use(express.static(path.resolve(__dirname, './build')))
 app.use('/api/tags', tagsRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
 
 /* const unkownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unkown endpoint' })
