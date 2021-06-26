@@ -4,8 +4,11 @@ import { useDispatch } from 'react-redux'
 import { setUser } from "../reducers/userReducer"
 import { Button } from 'react-bootstrap'
 import { store } from "react-notifications-component"
+import {useHistory} from 'react-router-dom'
 
 const Login = () => {
+  const history = useHistory()
+
   const dispatch = useDispatch()
 
   const username = useField('text')
@@ -19,6 +22,7 @@ const Login = () => {
       dispatch(setUser(user))
       username.setValue('')
       password.setValue('')
+      history.push('/')
     } catch (e) {
       store.addNotification({
         title: "Invalid credentials",
