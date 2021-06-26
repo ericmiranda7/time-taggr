@@ -4,6 +4,10 @@ export const setUser = user => {
   return { type: 'SET_USER', payload: user}
 }
 
+export const logout = () => {
+  return { type: 'SET_USER', payload: null}
+}
+
 const userReducer = (state = user, action) => {
   switch (action.type) {
     case 'SET_USER': {
