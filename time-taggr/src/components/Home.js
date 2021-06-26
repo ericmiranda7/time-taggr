@@ -1,7 +1,7 @@
 import Timer from './timer/Timer'
 import TagSelect from './settings/TagSelect'
 import { useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import party from "party-js"
 import { Link } from 'react-router-dom'
 import Notification from './Notification'
@@ -10,8 +10,6 @@ const Home = () => {
 	const tags = useSelector(state => state.tags)
 	const timer = useSelector(state => state.timer)
 	const user = useSelector(state => state.user)
-
-	const [message, setMessage] = useState({ type: '', visible: false, content: '' })
 
 	const selectedTag = tags.find(tag => tag.isSelected)
 
