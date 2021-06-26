@@ -30,6 +30,14 @@ app.use('/api/login', loginRouter)
 }
 app.use(unkownEndpoint) */
 
+// eslint-disable-next-line consistent-return
+const errorHandler = (error, request, response, next) => {
+  if (error.message === 'invalid user/pass') return response.status(401).send({ error: 'invalid username' })
+
+  next()
+}
+app.use(errorHandler)
+
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './build', 'index.html'));
 });

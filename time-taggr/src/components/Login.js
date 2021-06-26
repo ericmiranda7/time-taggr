@@ -18,7 +18,7 @@ const Login = () => {
       console.log(user)
       dispatch(setUser(user))
     } catch (e) {
-      console.log(e)
+      console.log('a')
     }
   }
 

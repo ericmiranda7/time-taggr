@@ -4,12 +4,14 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('../models/User')
 const config = require('../utils/config')
+require('express-async-errors')
 
 loginRouter.post('/', async (request, response) => {
   const creds = request.body
 
   if (creds.username && creds.password) {
     const user = await User.findOne({ username: creds.username })
+    if (!user) throw Error('invalid user/pass')
     const userForToken = {
       username: user.username,
       id: user._id,
