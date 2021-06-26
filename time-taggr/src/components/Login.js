@@ -1,13 +1,25 @@
-import useField from "../hooks/useField"
+import { useField } from "../hooks/useField"
+import userService from "../services/userService"
+import { useDispatch } from 'react-redux'
+import { setUser } from "../reducers/userReducer"
 
 const Login = () => {
+  const dispatch = useDispatch()
+
   const username = useField('text')
   const password = useField('password')
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault()
 
-    
+    try {
+      const user = await userService.login(username.value, password.value)
+      window.localStorage.setItem('user', JSON.stringify(user))
+      console.log(user)
+      dispatch(setUser(user))
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
