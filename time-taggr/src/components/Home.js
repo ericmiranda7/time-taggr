@@ -1,7 +1,7 @@
 import Timer from './timer/Timer'
 import TagSelect from './settings/TagSelect'
 import { useSelector } from 'react-redux'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import party from "party-js"
 import { Link } from 'react-router-dom'
 import Notification from './Notification'
@@ -11,7 +11,7 @@ const Home = () => {
 	const timer = useSelector(state => state.timer)
 	const user = useSelector(state => state.user)
 
-	const notifRef = useRef()
+	const [message, setMessage] = useState({ type: '', visible: false, content: '' })
 
 	const selectedTag = tags.find(tag => tag.isSelected)
 
@@ -25,17 +25,15 @@ const Home = () => {
 		}
 	})
 
-	useEffect(() => {
-		if (user === null) notifRef.current.setVisible(true)
-	})
-
 	return (
 		<div className="d-flex flex-column align-items-center mt-0">
-			<Notification type="info" ref={notifRef}>
-				Hey ! Please consider{' '}
-				<Link className="alert-link" to="/login">logging in</Link>
-				{' '} to save your data
-			</Notification>
+			{user ? null :
+				<Notification type="info">
+					Hey ! Consider{' '}
+					<Link className="alert-link" to="/login">logging in</Link>
+					{' '} to save your data
+				</Notification>
+			}
 			<div style={{ fontSize: '1.2em' }} className="mb-2" id="tagName"><TagSelect width="175px" /></div>
 			<Timer />
 		</div>

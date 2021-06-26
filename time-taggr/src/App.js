@@ -11,24 +11,26 @@ const App = () => {
   const tags = useSelector(state => state.tags)
 
   return (
-    <div className="page-div d-flex flex-column app-container">
-      <ReactNotification />
-      <NavigationBar />
-      <div className="container mt-3 d-flex flex-column align-items-center main">
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/stats">
-            <Stats />
-          </Route>
-          <Route path="/settings">
-            <Settings />
-          </Route>
-          <Route path="/">
-            <Home tags={tags} />
-          </Route>
-        </Switch>
+    <div>
+      <ReactNotification isMobile={true} />
+      <div className="page-div d-flex flex-column app-container">
+        <NavigationBar />
+        <div className="container mt-3 d-flex flex-column align-items-center main">
+          <Switch>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/stats">
+              <Stats />
+            </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
+            <Route path="/">
+              <Home tags={tags} />
+            </Route>
+          </Switch>
+        </div>
       </div>
     </div>
   )

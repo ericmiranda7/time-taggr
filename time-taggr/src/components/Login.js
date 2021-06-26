@@ -25,7 +25,7 @@ const Login = () => {
         message: 'Please check ursername or password',
         type: "danger",
         insert: "top",
-        container: "top-center",
+        container: "bottom-full",
         animationIn: ["animate__animated", "animate__fadeIn"],
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
