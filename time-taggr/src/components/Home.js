@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import party from "party-js"
 import { Link } from 'react-router-dom'
 import Notification from './Notification'
+import tagService from '../services/tagService'
 
 const Home = () => {
 	const tags = useSelector(state => state.tags)
@@ -21,6 +22,10 @@ const Home = () => {
 		if (timer.expired && selectedTag.value !== 'break') {
 			party.confetti(document.getElementById('tagName'), { count: party.variation.range(100, 200) })
 		}
+	})
+
+	useEffect(() => {
+		if (user) tagService.setToken(user.token)
 	})
 
 	return (

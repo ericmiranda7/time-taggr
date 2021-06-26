@@ -18,17 +18,13 @@ export const getLocalTags = () => {
 }
 
 export const addTag = (tag) => {
-  /*   return async dispatch => {
-      //const savedTag = await tagService.createTag(tag)
-      dispatch({
-        type: 'ADD_TAG',
-        payload: { tag: tag }
-      })
-    } */
-  const cleanTag = tagService.processTag(tag)
-  return {
-    type: 'ADD_TAG',
-    payload: { tag: cleanTag }
+  return async dispatch => {
+    const cleanTag = tagService.processTag(tag)
+    await tagService.createTag(cleanTag)
+    dispatch({
+      type: 'ADD_TAG',
+      payload: { tag: cleanTag }
+    })
   }
 }
 

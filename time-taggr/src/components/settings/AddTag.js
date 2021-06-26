@@ -1,8 +1,10 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addTag } from '../../reducers/tagsReducer'
 
 const AddTag = ({ isTimerRunning }) => {
   const dispatch = useDispatch()
+
+  const user = useSelector(state => state.user)
 
   const handleKeyDown = event => {
     if (event.key === 'Enter') {
