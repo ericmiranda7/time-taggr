@@ -9,8 +9,32 @@ const setToken = (newToken) => {
 }
 
 const getAll = async () => {
-  const response = await axios.get(baseUrl)
+  const config = {
+    headers: { Authorization: token }
+  }
+  const response = await axios.get(baseUrl, config)
+  console.log('rd', response.data)
   return response.data
+}
+
+const createTag = async (tag) => {
+  const config = {
+    headers: { Authorization: token }
+  }
+  console.log(tag)
+  const response = await axios.post(baseUrl, tag, config)
+  return response.data
+}
+
+const processTag = (tag) => {
+  tag.name = tag.name.charAt(0).toUpperCase() + tag.name.slice(1)
+  tag.value = tag.name.toLowerCase()
+  tag.isSelected = true
+  tag.duration = 25
+  tag.completedTime = 0
+  tag.break = 5
+
+  return tag
 }
 
 const getLocalData = () => {
@@ -38,26 +62,6 @@ const getLocalData = () => {
   ]
 
   return JSON.parse(window.localStorage.getItem('tags')) || initialState
-}
-
-const createTag = async (tag) => {
-  const config = {
-    headers: { Authorization: token }
-  }
-  console.log(tag)
-  const response = await axios.post(baseUrl, tag, config)
-  return response.data
-}
-
-const processTag = (tag) => {
-  tag.name = tag.name.charAt(0).toUpperCase() + tag.name.slice(1)
-  tag.value = tag.name.toLowerCase()
-  tag.isSelected = true
-  tag.duration = 25
-  tag.completedTime = 0
-  tag.break = 5
-
-  return tag
 }
 
 

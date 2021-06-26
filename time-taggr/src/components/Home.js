@@ -1,11 +1,12 @@
 import Timer from './timer/Timer'
 import TagSelect from './settings/TagSelect'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import party from "party-js"
 import { Link } from 'react-router-dom'
 import Notification from './Notification'
 import tagService from '../services/tagService'
+import { getAllTags } from '../reducers/tagsReducer'
 
 const Home = () => {
 	const tags = useSelector(state => state.tags)
@@ -14,7 +15,10 @@ const Home = () => {
 
 	const selectedTag = tags.find(tag => tag.isSelected)
 
+	const dispatch = useDispatch()
+
 	useEffect(() => {
+		console.log(tags)
 		window.localStorage.setItem('tags', JSON.stringify(tags))
 	}, [tags])
 
@@ -25,8 +29,11 @@ const Home = () => {
 	})
 
 	useEffect(() => {
-		if (user) tagService.setToken(user.token)
-	})
+		if (user) {
+			tagService.setToken(user.token)
+			dispatch(getAllTags())
+		}
+	}, [dispatch, user])
 
 	return (
 		<div className="d-flex flex-column align-items-center mt-0">
