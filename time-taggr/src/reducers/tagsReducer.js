@@ -1,26 +1,47 @@
 import tagService from '../services/tagService'
 
-const initialState = tagService.getLocalData()
+const initState = [
+  {
+    name: 'Study',
+    value: 'study',
+    color: 'blue',
+    isSelected: true,
+    duration: 25,
+    completedTime: 0,
+    id: 1,
+    break: 5,
+  },
+  {
+    name: 'Break',
+    value: 'break',
+    color: 'white',
+    isSelected: false,
+    duration: 25,
+    completedTime: 0,
+    id: 3,
+    break: 25,
+  },
+]
 
-export const getAllTags = () => {
+const initialState = tagService.getLocalData() || initState
+
+export const initToDbTags = () => {
   return async dispatch => {
-    const tags = await tagService.getAll()
+    let tags = await tagService.getAll()
     dispatch({ type: 'INIT_TAG', payload: { tags } })
   }
 }
 
-export const getLocalTags = () => {
-  const tags = tagService.getLocalData()
+export const clearTags = () => {
   return {
-    type: 'INIT_TAG',
-    payload: { tags }
+    type: 'INIT_TAG', payload: { tags: initState }
   }
 }
 
 export const addTag = (tag) => {
   return async dispatch => {
     const cleanTag = tagService.processTag(tag)
-    await tagService.createTag(cleanTag)
+    tagService.saveSingleTagToCloud(tag)
     dispatch({
       type: 'ADD_TAG',
       payload: { tag: cleanTag }
@@ -29,9 +50,11 @@ export const addTag = (tag) => {
 }
 
 export const makeSelected = tagValue => {
-  return {
-    type: 'MAKE_SELECTED',
-    payload: { tagValue }
+  return async dispatch => {
+    dispatch({
+      type: 'MAKE_SELECTED',
+      payload: { tagValue }
+    })
   }
 }
 

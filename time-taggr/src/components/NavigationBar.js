@@ -3,6 +3,8 @@ import { Navbar, Nav } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../reducers/userReducer'
+import { clearTags } from '../reducers/tagsReducer'
+import tagService from '../services/tagService'
 
 const NavigationBar = () => {
   const user = useSelector(state => state.user)
@@ -16,7 +18,10 @@ const NavigationBar = () => {
     toggleNav()
 
     dispatch(logout())
+    window.localStorage.removeItem('tags')
+    dispatch(clearTags())
     window.localStorage.removeItem('user')
+    tagService.setToken(null)
   }
 
   return (

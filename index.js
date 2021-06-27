@@ -33,7 +33,7 @@ app.use(unkownEndpoint) */
 // eslint-disable-next-line consistent-return
 const errorHandler = (error, request, response, next) => {
   if (error.message === 'invalid user/pass') return response.status(401).send({ error: 'invalid username' })
-
+  if (error.name === 'ValidationError') return response.status(409).json({ error: 'dup' })
   next()
 }
 app.use(errorHandler)

@@ -1,6 +1,7 @@
 const usersRouter = require('express').Router()
 const bcrypt = require('bcrypt')
 const User = require('../models/User')
+require('express-async-errors')
 
 usersRouter.post('/', async (request, response) => {
   const user = request.body
@@ -13,12 +14,7 @@ usersRouter.post('/', async (request, response) => {
 
   const userToSave = new User(user)
 
-  let savedUser
-  try {
-    savedUser = await userToSave.save()
-  } catch (e) {
-    response.status(400).json({ error: e })
-  }
+  const savedUser = await userToSave.save()
 
   response.status(201).send(savedUser)
 })

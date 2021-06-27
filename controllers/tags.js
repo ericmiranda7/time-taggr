@@ -14,7 +14,12 @@ const getTokenFrom = (request) => {
 const decodeToken = (request, response) => {
   // authenticate user
   const token = getTokenFrom(request)
-  const decodedToken = jwt.verify(token, config.SECRET)
+  let decodedToken
+  try {
+    decodedToken = jwt.verify(token, config.SECRET)
+  } catch (e) {
+    console.log(e)
+  }
   if (!token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
@@ -25,11 +30,22 @@ tagsRouter.get('/', async (request, response) => {
   // authenticate user
   const decodedToken = decodeToken(request, response)
   const user = await User.findById(decodedToken.id)
-  console.log(user)
   response.status(200).json(user.tags)
 })
 
-tagsRouter.post('/', async (request, response) => {
+tagsRouter.post('/saveMultiple', async (request, response) => {
+  console.log('savemult')
+  const decodedToken = decodeToken(request, response)
+  const tags = request.body
+
+  const user = await User.findById(decodedToken.id)
+  user.tags = tags
+  await user.save()
+  response.status(201).end()
+})
+
+tagsRouter.post('/saveSingle', async (request, response) => {
+  console.log('save sing')
   const decodedToken = decodeToken(request, response)
   // set all prev tags of user to unimportant
   await User.findByIdAndUpdate(decodedToken.id, {

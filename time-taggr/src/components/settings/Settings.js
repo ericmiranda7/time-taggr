@@ -9,10 +9,6 @@ const Settings = () => {
   const tags = useSelector(state => state.tags)
   const selectedTag = tags.find(tag => tag.isSelected)
 
-  useEffect(() => {
-    window.localStorage.setItem('tags', JSON.stringify(tags))
-  }, [tags])
-
   const isTimerRunning = useSelector(state => state.timer.running || state.timer.pause)
 
   return (

@@ -4,9 +4,7 @@ import { addTag } from '../../reducers/tagsReducer'
 const AddTag = ({ isTimerRunning }) => {
   const dispatch = useDispatch()
 
-  const user = useSelector(state => state.user)
-
-  const handleKeyDown = event => {
+  const handleKeyDown = async event => {
     if (event.key === 'Enter') {
       const tag = {
         name: event.target.value,

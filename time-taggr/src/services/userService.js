@@ -8,4 +8,10 @@ const login = async (username, password) => {
   return response.data
 }
 
-export default { login }
+const register = async (username, password) => {
+  const response = await axios.post('/api/users', { username, password })
+  return response.data
+}
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default { login, register }
