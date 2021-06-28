@@ -34,14 +34,14 @@ tagsRouter.get('/', async (request, response) => {
 })
 
 tagsRouter.post('/saveMultiple', async (request, response) => {
-  console.log('savemult')
   const decodedToken = decodeToken(request, response)
   const tags = request.body
-
-  const user = await User.findById(decodedToken.id)
-  user.tags = tags
-  await user.save()
-  response.status(201).end()
+  console.log('tags', tags)
+  User.findByIdAndUpdate(decodedToken.id, {
+    $set: {
+      tags,
+    },
+  }).then(console.log('suc')).catch('fail')
 })
 
 tagsRouter.post('/saveSingle', async (request, response) => {

@@ -25,17 +25,7 @@ const saveTagsToCloud = async (tags) => {
   const config = {
     headers: { Authorization: token }
   }
-  console.log('t is ', tags)
   await axios.post(`${baseUrl}/saveMultiple`, tags, config)
-}
-
-const saveSingleTagToCloud = async (tag) => {
-  console.log('OVER HERE ', token)
-  if (!token) return
-  const config = {
-    headers: { Authorization: token }
-  }
-  //await axios.post(`${baseUrl}/saveSingle`, tag, config)
 }
 
 const processTag = (tag) => {
@@ -50,6 +40,6 @@ const processTag = (tag) => {
 }
 
 
-const services = { getAll, getLocalData, processTag, saveTagsToCloud, saveSingleTagToCloud, setToken }
+const services = { getAll, getLocalData, processTag, saveTagsToCloud, setToken }
 
 export default services

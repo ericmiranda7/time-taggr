@@ -39,22 +39,23 @@ export const clearTags = () => {
 }
 
 export const addTag = (tag) => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     const cleanTag = tagService.processTag(tag)
-    tagService.saveSingleTagToCloud(tag)
     dispatch({
       type: 'ADD_TAG',
       payload: { tag: cleanTag }
     })
+    if (getState().user) tagService.saveTagsToCloud(getState().tags)
   }
 }
 
 export const makeSelected = tagValue => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     dispatch({
       type: 'MAKE_SELECTED',
       payload: { tagValue }
     })
+    if (getState().user) tagService.saveTagsToCloud(getState().tags)
   }
 }
 
@@ -66,23 +67,32 @@ export const addTagToBreak = tagValue => {
 }
 
 export const setBreakDuration = (duration, tagValue) => {
-  return {
-    type: 'SET_TAG_BREAK_DURATION',
-    payload: { duration, tagValue }
+  return async (dispatch, getState) => {
+    dispatch({
+      type: 'SET_TAG_BREAK_DURATION',
+      payload: { duration, tagValue }
+    })
+    if (getState().user) tagService.saveTagsToCloud(getState().tags)
   }
 }
 
 export const setTagDuration = (duration, tagValue) => {
-  return {
-    type: 'SET_TAG_DURATION',
-    payload: { duration, tagValue }
+  return async (dispatch, getState) => {
+    dispatch({
+      type: 'SET_TAG_DURATION',
+      payload: { duration, tagValue }
+    })
+    if (getState().user) tagService.saveTagsToCloud(getState().tags)
   }
 }
 
 export const addCompletedTime = (tagValue, completedTime) => {
-  return {
-    type: 'ADD_COMPLETION',
-    payload: { tagValue, completedTime }
+  return async (dispatch, getState) => {
+    dispatch({
+      type: 'ADD_COMPLETION',
+      payload: { tagValue, completedTime }
+    })
+    if (getState().user) tagService.saveTagsToCloud(getState().tags)
   }
 }
 

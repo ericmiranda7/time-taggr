@@ -1,11 +1,10 @@
 import Timer from './timer/Timer'
 import TagSelect from './settings/TagSelect'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import party from "party-js"
 import { Link } from 'react-router-dom'
 import Notification from './Notification'
-import tagService from '../services/tagService'
 
 const Home = () => {
 	const tags = useSelector(state => state.tags)

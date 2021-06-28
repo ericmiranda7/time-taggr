@@ -30,11 +30,11 @@ const Login = () => {
 
       // sync local / cloud tags
       const dbTags = await tagService.getAll()
-      console.log('tl', dbTags.length)
       if (dbTags.length !== 0) {
         dispatch(initToDbTags())
       }
       else {
+        console.log('saving tags', tags)
         tagService.saveTagsToCloud(tags)
       }
 

@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addTag } from '../../reducers/tagsReducer'
 
 const AddTag = ({ isTimerRunning }) => {
@@ -12,6 +12,7 @@ const AddTag = ({ isTimerRunning }) => {
       }
       event.target.value = ''
       dispatch(addTag(tag))
+
     }
   }
 
