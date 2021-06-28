@@ -37,30 +37,12 @@ tagsRouter.post('/saveMultiple', async (request, response) => {
   const decodedToken = decodeToken(request, response)
   const tags = request.body
   console.log('tags', tags)
-  User.findByIdAndUpdate(decodedToken.id, {
+  await User.findByIdAndUpdate(decodedToken.id, {
     $set: {
       tags,
     },
   }).then(console.log('suc')).catch('fail')
-})
-
-tagsRouter.post('/saveSingle', async (request, response) => {
-  console.log('save sing')
-  const decodedToken = decodeToken(request, response)
-  // set all prev tags of user to unimportant
-  await User.findByIdAndUpdate(decodedToken.id, {
-    $set: {
-      'tags.$[].isSelected': false,
-    },
-  })
-
-  // get tag
-  const tag = request.body
-  const user = await User.findById(decodedToken.id)
-  user.tags = [...user.tags, tag]
-  await user.save()
-
-  response.status(201).end()
+  response.status(200).end()
 })
 
 module.exports = tagsRouter
