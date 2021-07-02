@@ -6,7 +6,7 @@ const user = JSON.parse(window.localStorage.getItem('user'))
 let token = `bearer ${user?.token}` || null
 
 const setToken = (newToken) => {
-  token = newToken === null ? newToken : `bearer ${newToken}`
+  token = newToken && `bearer ${newToken}`
 }
 
 const getLocalData = () => {
