@@ -16,7 +16,7 @@ const Stats = () => {
 							<ListGroup.Item key={tag.value}>
 								<div className="d-flex flex-row">
 									<span className="d-inline-flex flex-grow-1 centered-text-span" >{tag.name}</span>
-									<span>{tag.completedTime / 3600 | 0}H {tag.completedTime / 60 | 0}M</span>
+									<span>{tag.completedTime / 3600 | 0}H {(tag.completedTime / 60 | 0) % 60}M</span>
 								</div>
 							</ListGroup.Item>
 						)
