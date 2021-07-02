@@ -34,12 +34,10 @@ const Login = () => {
         dispatch(initToDbTags())
       }
       else {
-        console.log('saving tags', tags)
         tagService.saveTagsToCloud(tags)
       }
 
     } catch (e) {
-      console.log(e)
       store.addNotification({
         title: "Invalid credentials",
         message: 'Please check ursername or password',

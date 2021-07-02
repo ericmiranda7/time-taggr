@@ -7,6 +7,7 @@ const config = require('./utils/config')
 const tagsRouter = require('./controllers/tags')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const middleware = require('./utils/middleware')
 
 const app = express()
 
@@ -20,6 +21,7 @@ const requestLogger = (request, response, next) => {
 }
 app.use(requestLogger)
 
+app.use(middleware.tokenExtractor)
 app.use(express.static(path.resolve(__dirname, './build')))
 app.use('/api/tags', tagsRouter)
 app.use('/api/users', usersRouter)
