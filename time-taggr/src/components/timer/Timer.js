@@ -8,6 +8,7 @@ import TimerControls from './TimerControls'
 const Timer = () => {
   const timer = useSelector(state => state.timer)
   const dispatch = useDispatch()
+  const userSettings = useSelector(state => state.user.settings)
 
   const selectedTag = useSelector(({ tags }) => tags.find(tag => tag.isSelected))
 
@@ -27,14 +28,18 @@ const Timer = () => {
 
       // if expired naturally
       if (expired && selectedTag.value !== 'break') {
-        // Start breaking
-        dispatch(addTagToBreak(selectedTag.value))
-        dispatch(makeSelected('break'))
-        dispatch(setDuration({ duration: selectedTag.break }))
-        startTimer(dispatch)
+        // Start breaking if pomodor setting
+        if (userSettings.pomodoro) {
+          dispatch(addTagToBreak(selectedTag.value))
+          dispatch(makeSelected('break'))
+          dispatch(setDuration({ duration: selectedTag.break }))
+          startTimer(dispatch)
+        } else {
+          dispatch(setDuration(selectedTag))
+        }
       }
     }
-  }, [dispatch, selectedTag, timer])
+  }, [dispatch, selectedTag, timer, userSettings.pomodoro])
 
   return (
     <div>
