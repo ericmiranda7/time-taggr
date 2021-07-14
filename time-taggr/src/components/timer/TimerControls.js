@@ -1,6 +1,7 @@
 import { Button } from 'react-bootstrap'
 import { startTimer, setDuration, stopTimer, pauseTimer, resumeTimer } from '../../reducers/timerReducer'
 import { makeSelected, addTagToBreak } from '../../reducers/tagsReducer'
+import { useSelector } from 'react-redux'
 
 const ControlButton = ({ variant, text, handleClick }) => {
   return (
@@ -9,6 +10,7 @@ const ControlButton = ({ variant, text, handleClick }) => {
 }
 
 const TimerControls = ({ timer, dispatch, selectedTag }) => {
+  const userSettings = useSelector(state => state.user.settings)
   const handleStartClick = () => startTimer(dispatch)
   const handleStopClick = () => {
     stopTimer(dispatch, selectedTag)
@@ -37,7 +39,7 @@ const TimerControls = ({ timer, dispatch, selectedTag }) => {
           </div>
           : <div>
             <ControlButton variant="primary" text="Start" handleClick={handleStartClick} />
-            {selectedTag.value !== 'break'
+            {selectedTag.value !== 'break' && userSettings.pomodoro
               ? <ControlButton variant="success" text="Break" handleClick={handleBreakClick} />
               : null}
 
