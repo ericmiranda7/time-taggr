@@ -12,6 +12,9 @@ const userSchema = new mongoose.Schema({
   },
   passwordHash: String,
   tags: [tagSchema],
+  settings: {
+    pomodoro: Boolean,
+  },
 })
 
 userSchema.set('toJSON', {

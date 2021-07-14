@@ -11,6 +11,7 @@ usersRouter.post('/', async (request, response) => {
 
   user.passwordHash = passwordHash
   user.tags = []
+  user.settings = { pomodoro: true }
 
   const userToSave = new User(user)
 
