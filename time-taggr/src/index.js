@@ -5,6 +5,7 @@ import store from './store'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 import './App.css'
+import 'react-toggle/style.css'
 import 'react-notifications-component/dist/theme.css'
 
 ReactDOM.render(

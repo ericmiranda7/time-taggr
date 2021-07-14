@@ -96,6 +96,15 @@ export const addCompletedTime = (tagValue, completedTime) => {
   }
 }
 
+export const deleteSelected = () => {
+  return async (dispatch, getState) => {
+    dispatch({
+      type: 'DELETE_SELECTED',
+    })
+    if (getState().user) tagService.saveTagsToCloud(getState().tags)
+  }
+}
+
 const tagsReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'INIT_TAG':
@@ -118,6 +127,12 @@ const tagsReducer = (state = initialState, action) => {
 
     case 'SAVE_WORK_TAG_TO_BREAK':
       return state.map(tag => tag.value === 'break' ? { ...tag, workTag: action.payload.tagValue } : tag)
+
+    case 'DELETE_SELECTED':
+      const newState = state.filter(tag => !tag.isSelected)
+      const makeTrueIndex = newState.map(v => v.value).indexOf()
+      // decide how delete works
+      return newState
 
     default:
       return state

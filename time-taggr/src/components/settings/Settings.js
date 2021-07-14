@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux'
 import TagSelect from './TagSelect'
 import DurationForm from './DurationForm'
 import AddTag from './AddTag'
+import DeleteTag from './DeleteTag'
+import Toggle from 'react-toggle'
 
 const Settings = () => {
   const tags = useSelector(state => state.tags)
@@ -19,6 +21,14 @@ const Settings = () => {
             <div className="text-center">{selectedTag.name}</div>
           </ListGroup.Item>
           <ListGroup.Item>
+            <div className="d-flex">
+              <span className="d-inline-flex flex-grow-1 centered-text-span"><a href="https://sketchplanations.com/the-pomodoro-technique">Pomodoro</a></span>
+              <Toggle
+                defaultChecked={true}
+                 />
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item>
             <DurationForm selectedTag={selectedTag} isTimerRunning={isTimerRunning} />
           </ListGroup.Item>
           <ListGroup.Item>
@@ -29,6 +39,9 @@ const Settings = () => {
           </ListGroup.Item>
           <ListGroup.Item>
             <AddTag isTimerRunning={isTimerRunning} />
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <DeleteTag isTimerRunning={isTimerRunning} />
           </ListGroup.Item>
         </ListGroup>
       </Card>
