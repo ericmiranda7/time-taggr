@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 const Stats = () => {
 	const tags = useSelector(state => state.tags)
-
+	
 	const totalTime = tags.reduce((prev, curr) => prev + curr.completedTime, 0)
 
 	return (
