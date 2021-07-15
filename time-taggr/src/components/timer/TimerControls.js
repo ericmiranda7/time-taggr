@@ -11,6 +11,7 @@ const ControlButton = ({ variant, text, handleClick }) => {
 
 const TimerControls = ({ timer, dispatch, selectedTag }) => {
   const userSettings = useSelector(state => state.user.settings)
+  console.log(userSettings.pomodoro)
   const handleStartClick = () => startTimer(dispatch)
   const handleStopClick = () => {
     stopTimer(dispatch, selectedTag)

@@ -1,19 +1,23 @@
 import { Card, ListGroup } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import TagSelect from './TagSelect'
 import DurationForm from './DurationForm'
 import AddTag from './AddTag'
 import DeleteTag from './DeleteTag'
 import Toggle from 'react-toggle'
-import userService from '../../services/userService'
+import { saveSettings } from '../../reducers/userReducer'
 
 const Settings = () => {
   const tags = useSelector(state => state.tags)
   const selectedTag = tags.find(tag => tag.isSelected)
+  const userSettings = useSelector(state => state.user.settings)
+  console.log(userSettings)
+
+  const dispatch = useDispatch()
 
   const isTimerRunning = useSelector(state => state.timer.running || state.timer.pause)
 
-  const handlePomodoroSettingChange = (e) => userService.saveSettings({ pomodoro: e.target.checked })
+  const handlePomodoroSettingChange = (e) => dispatch(saveSettings(e.target.checked))
 
   return (
     <div className="d-flex justify-content-center">
@@ -27,7 +31,7 @@ const Settings = () => {
             <div className="d-flex">
               <span className="d-inline-flex flex-grow-1 centered-text-span"><a href="https://sketchplanations.com/the-pomodoro-technique">Pomodoro</a></span>
               <Toggle
-                defaultChecked={true}
+                checked={userSettings.pomodoro}
                 onChange={handlePomodoroSettingChange}
               />
             </div>

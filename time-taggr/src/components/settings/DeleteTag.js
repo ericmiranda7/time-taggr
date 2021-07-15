@@ -10,7 +10,7 @@ const DeleteTag = ({ isTimerRunning }) => {
   }
   return (
     <div className="d-flex">
-      <Button variant="danger" onClick={handleDelete} className="btn-sm flex-grow-1">Delete Tag</Button>
+      <Button variant="danger" onClick={handleDelete} disabled className="btn-sm flex-grow-1">Delete Tag</Button>
     </div>
   )
 }
