@@ -13,5 +13,16 @@ const register = async (username, password) => {
   return response.data
 }
 
+const saveSettings = async (settings) => {
+  const user = JSON.parse(window.localStorage.getItem('user'))
+  const token = `bearer ${user?.token}` || null
+
+  const config = {
+    headers: { Authorization: token }
+  }
+
+  await axios.post('/api/users/settings', settings, config)
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { login, register }
+export default { login, register, saveSettings }
