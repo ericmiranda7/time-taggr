@@ -8,7 +8,7 @@ import TimerControls from './TimerControls'
 const Timer = () => {
   const timer = useSelector(state => state.timer)
   const dispatch = useDispatch()
-  const userSettings = useSelector(state => state.user.settings)
+  const userSettings = useSelector(state => state.user?.settings)
 
   const selectedTag = useSelector(({ tags }) => tags.find(tag => tag.isSelected))
 
@@ -39,7 +39,7 @@ const Timer = () => {
         }
       }
     }
-  }, [dispatch, selectedTag, timer, userSettings.pomodoro])
+  }, [dispatch, selectedTag, timer, userSettings?.pomodoro])
 
   return (
     <div>

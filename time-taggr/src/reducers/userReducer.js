@@ -13,7 +13,8 @@ export const logout = () => {
 export const saveSettings = (pomodoro) => {
   return async (dispatch, getState) => {
     dispatch({ type: 'SET_POMODORO_MODE', payload: pomodoro })
-    if (getState().user) userService.saveSettings({ pomodoro })
+    console.log('BUBU', getState().user)
+    if (getState().user.username === null) userService.saveSettings({ pomodoro })
   }
 }
 

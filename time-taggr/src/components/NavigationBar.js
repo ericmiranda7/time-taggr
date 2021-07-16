@@ -7,7 +7,7 @@ import { clearTags } from '../reducers/tagsReducer'
 import tagService from '../services/tagService'
 
 const NavigationBar = () => {
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.user?.username)
   const dispatch = useDispatch()
 
   const [navExpanded, setNavExpanded] = useState(false)

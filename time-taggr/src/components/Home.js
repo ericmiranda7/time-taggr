@@ -9,7 +9,7 @@ import Notification from './Notification'
 const Home = () => {
 	const tags = useSelector(state => state.tags)
 	const timer = useSelector(state => state.timer)
-	const user = useSelector(state => state.user)
+	const user = useSelector(state => state.user?.username)
 
 	const selectedTag = tags.find(tag => tag.isSelected)
 

@@ -10,7 +10,7 @@ import { saveSettings } from '../../reducers/userReducer'
 const Settings = () => {
   const tags = useSelector(state => state.tags)
   const selectedTag = tags.find(tag => tag.isSelected)
-  const userSettings = useSelector(state => state.user.settings)
+  const userSettings = useSelector(state => state.user?.settings)
   console.log(userSettings)
 
   const dispatch = useDispatch()
@@ -31,7 +31,7 @@ const Settings = () => {
             <div className="d-flex">
               <span className="d-inline-flex flex-grow-1 centered-text-span"><a href="https://sketchplanations.com/the-pomodoro-technique">Pomodoro</a></span>
               <Toggle
-                checked={userSettings.pomodoro}
+                checked={userSettings?.pomodoro || false}
                 onChange={handlePomodoroSettingChange}
               />
             </div>

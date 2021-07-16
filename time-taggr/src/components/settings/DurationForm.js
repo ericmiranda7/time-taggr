@@ -13,7 +13,7 @@ const styles = {
 
 const DurationForm = ({ selectedTag, isTimerRunning }) => {
   const dispatch = useDispatch()
-  const userSettings = useSelector(state => state.user.settings)
+  const userSettings = useSelector(state => state.user?.settings)
 
   const breakTime = { minutes: selectedTag.break % 60, hours: selectedTag.break / 60 | 0 }
   const selectedTagTime = {
@@ -54,7 +54,7 @@ const DurationForm = ({ selectedTag, isTimerRunning }) => {
         <input className="mr-1" disabled={isTimerRunning} type="number" onChange={hoursChangeHandler} onBlur={clearInput} style={styles.duration} name="hours" placeholder={selectedTagTime.hours + 'H'} />
         <input type="number" disabled={isTimerRunning} onChange={minutesChangeHandler} onBlur={clearInput} style={styles.duration} name="minutes" placeholder={selectedTagTime.minutes + 'M'} />
       </div>
-      { userSettings.pomodoro && 
+      { userSettings?.pomodoro && 
         <div className="d-flex flex-row mt-1">
           <span className="d-inline-flex flex-grow-1" style={styles.spanAlignCenter} >Break</span>
           <input className="mr-1" disabled={isTimerRunning} type="number" onBlur={clearInput} onChange={hoursChangeHandler} style={styles.duration} name="breakHours" placeholder={breakTime.hours + 'H'} />

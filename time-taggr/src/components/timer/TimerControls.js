@@ -10,8 +10,7 @@ const ControlButton = ({ variant, text, handleClick }) => {
 }
 
 const TimerControls = ({ timer, dispatch, selectedTag }) => {
-  const userSettings = useSelector(state => state.user.settings)
-  console.log(userSettings.pomodoro)
+  const userSettings = useSelector(state => state.user?.settings)
   const handleStartClick = () => startTimer(dispatch)
   const handleStopClick = () => {
     stopTimer(dispatch, selectedTag)
@@ -40,7 +39,7 @@ const TimerControls = ({ timer, dispatch, selectedTag }) => {
           </div>
           : <div>
             <ControlButton variant="primary" text="Start" handleClick={handleStartClick} />
-            {selectedTag.value !== 'break' && userSettings.pomodoro
+            {selectedTag.value !== 'break' && userSettings?.pomodoro
               ? <ControlButton variant="success" text="Break" handleClick={handleBreakClick} />
               : null}
 
