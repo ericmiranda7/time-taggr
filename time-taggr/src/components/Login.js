@@ -57,6 +57,19 @@ const Login = () => {
   const handleSignup = async () => {
     try {
       await userService.register(username.value, password.value)
+      store.addNotification({
+        title: "Signup Successful !",
+        message: 'Please proceed to login',
+        type: "success",
+        insert: "top",
+        container: "bottom-full",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      })
     } catch (e) {
       store.addNotification({
         title: "Duplicate username",
@@ -70,7 +83,7 @@ const Login = () => {
           duration: 5000,
           onScreen: true
         }
-      });
+      })
 
     }
   }
