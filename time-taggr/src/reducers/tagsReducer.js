@@ -45,7 +45,7 @@ export const addTag = (tag) => {
       type: 'ADD_TAG',
       payload: { tag: cleanTag }
     })
-    if (getState().user) tagService.saveTagsToCloud(getState().tags)
+    if (getState().user?.username !== undefined) tagService.saveTagsToCloud(getState().tags)
   }
 }
 
@@ -55,7 +55,7 @@ export const makeSelected = tagValue => {
       type: 'MAKE_SELECTED',
       payload: { tagValue }
     })
-    if (getState().user) tagService.saveTagsToCloud(getState().tags)
+    if (getState().user?.username !== undefined) tagService.saveTagsToCloud(getState().tags)
   }
 }
 
@@ -72,7 +72,7 @@ export const setBreakDuration = (duration, tagValue) => {
       type: 'SET_TAG_BREAK_DURATION',
       payload: { duration, tagValue }
     })
-    if (getState().user) tagService.saveTagsToCloud(getState().tags)
+    if (getState().user?.username !== undefined) tagService.saveTagsToCloud(getState().tags)
   }
 }
 
@@ -82,7 +82,7 @@ export const setTagDuration = (duration, tagValue) => {
       type: 'SET_TAG_DURATION',
       payload: { duration, tagValue }
     })
-    if (getState().user) tagService.saveTagsToCloud(getState().tags)
+    if (getState().user?.username !== undefined) tagService.saveTagsToCloud(getState().tags)
   }
 }
 
@@ -92,7 +92,7 @@ export const addCompletedTime = (tagValue, completedTime) => {
       type: 'ADD_COMPLETION',
       payload: { tagValue, completedTime }
     })
-    if (getState().user) tagService.saveTagsToCloud(getState().tags)
+    if (getState().user?.username !== undefined) tagService.saveTagsToCloud(getState().tags)
   }
 }
 
@@ -102,7 +102,7 @@ export const deleteSelected = (tagValue) => {
       type: 'DELETE_SELECTED',
       payload: tagValue,
     })
-    if (getState().user) tagService.saveTagsToCloud(getState().tags)
+    if (getState().user?.username !== undefined) tagService.saveTagsToCloud(getState().tags)
   }
 }
 

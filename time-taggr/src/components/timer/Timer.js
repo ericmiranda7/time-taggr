@@ -29,7 +29,7 @@ const Timer = () => {
       // if expired naturally
       if (expired && selectedTag.value !== 'break') {
         // Start breaking if pomodor setting
-        if (userSettings.pomodoro) {
+        if (userSettings?.pomodoro) {
           dispatch(addTagToBreak(selectedTag.value))
           dispatch(makeSelected('break'))
           dispatch(setDuration({ duration: selectedTag.break }))
