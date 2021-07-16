@@ -1,3 +1,3 @@
-# time-taggr
+# Time-Taggr
 Time tracker and tagging app using MERN Stack  
-https://time-taggr.herokuapp.com/
+[App](https://time-taggr.herokuapp.com/)
