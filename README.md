@@ -1,3 +1,3 @@
 # Time-Taggr
 Time tracker and tagging app using MERN Stack  
-[App](https://time-taggr.herokuapp.com/)
+[Link to the App (heroku free dyno, so takes a few seconds to respond)](https://time-taggr.herokuapp.com/)
